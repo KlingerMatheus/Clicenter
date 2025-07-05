@@ -127,11 +127,16 @@ const Sidebar: React.FC<SidebarProps> = ({ userType, open, onToggle, onThemeTogg
           >
             <ListItemIcon sx={{ minWidth: 40, display: 'flex', justifyContent: 'center' }}>
               <Avatar sx={{ 
-                bgcolor: theme.palette.primary.main, 
+                bgcolor: theme.palette.mode === 'dark' 
+                  ? theme.palette.grey[800] 
+                  : theme.palette.primary.main, 
                 width: 36, 
                 height: 36,
                 fontSize: '0.875rem',
                 fontWeight: 600,
+                color: theme.palette.mode === 'dark' 
+                  ? theme.palette.common.white 
+                  : theme.palette.primary.contrastText,
               }}>
                 {userInfo.avatar}
               </Avatar>
