@@ -12,14 +12,17 @@
     "prettier:fix": "prettier --write .",
     "server:dev": "tsx watch server/src/index.ts",
     "server:build": "tsc -p server/tsconfig.json",
-    "server:start": "node server/dist/index.js"
+    "server:start": "node server/dist/index.js",
+    "server:create-test-users": "tsx server/src/scripts/createAdminUser.ts"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.6",
     "@mui/material": "^6.1.6",
     "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -27,6 +30,7 @@
     "express-rate-limit": "^7.1.5",
     "framer-motion": "^11.18.2",
     "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "next": "^15.3.5",
     "react": "^18.3.1",
