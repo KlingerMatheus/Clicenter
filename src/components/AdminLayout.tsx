@@ -5,7 +5,7 @@ import { Box, CssBaseline } from '@mui/material';
 import { Sidebar } from './sidebar';
 import TopBar from './TopBar';
 import { SidebarProvider, useSidebar } from './sidebar/SidebarProvider';
-import { ThemeProvider } from './ThemeProvider';
+import { ThemeProvider, useTheme } from './ThemeProvider';
 
 interface AdminLayoutProps {
     children: React.ReactNode;
@@ -14,11 +14,7 @@ interface AdminLayoutProps {
 
 const AdminLayoutContent: React.FC<{ children: React.ReactNode; title: string }> = ({ children, title }) => {
     const { toggleMobile } = useSidebar();
-
-    const handleThemeToggle = () => {
-        // Implementar toggle de tema
-        console.log('Toggle theme');
-    };
+    const { toggleTheme } = useTheme();
 
     const handleLogout = () => {
         // Implementar logout
@@ -28,7 +24,7 @@ const AdminLayoutContent: React.FC<{ children: React.ReactNode; title: string }>
     return (
         <Box sx={{ display: 'flex', height: '100vh' }}>
             <CssBaseline />
-            <Sidebar onThemeToggle={handleThemeToggle} onLogout={handleLogout} />
+            <Sidebar onThemeToggle={toggleTheme} onLogout={handleLogout} />
             <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <TopBar title={title} onSidebarToggle={toggleMobile} />
                 <Box component="main" sx={{ flexGrow: 1, overflow: 'auto' }}>
