@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import {
     Box,
     Typography,
@@ -64,6 +65,7 @@ interface UserFormData {
 const UserManagement: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const { token } = useAuth();
 
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
@@ -86,7 +88,11 @@ const UserManagement: React.FC = () => {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${API_BASE_URL}/users`);
+            const response = await fetch(`${API_BASE_URL}/users`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             if (data.success) {
                 setUsers(data.data);
@@ -159,7 +165,8 @@ const UserManagement: React.FC = () => {
             const response = await fetch(url, {
                 method,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(payload)
             });
@@ -189,7 +196,10 @@ const UserManagement: React.FC = () => {
 
         try {
             const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
 
             const data = await response.json();
@@ -209,7 +219,10 @@ const UserManagement: React.FC = () => {
     const handleToggleStatus = async (userId: string) => {
         try {
             const response = await fetch(`${API_BASE_URL}/users/${userId}/toggle-status`, {
-                method: 'PATCH'
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
 
             const data = await response.json();

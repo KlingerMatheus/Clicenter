@@ -2,14 +2,23 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function HomePage() {
   const router = useRouter();
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
-    // Redirecionar para o dashboard do admin
-    router.push('/admin/dashboard');
-  }, [router]);
+    if (!isLoading) {
+      if (user) {
+        // Se já está logado, redireciona para o dashboard
+        router.push('/admin/dashboard');
+      } else {
+        // Se não está logado, redireciona para login
+        router.push('/login');
+      }
+    }
+  }, [user, isLoading, router]);
 
   return null;
 }
