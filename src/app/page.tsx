@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { Sidebar, SidebarProvider, useSidebar } from '../components/sidebar';
-import MobileMenuButton from '../components/MobileMenuButton';
+import TopBar from '../components/TopBar';
 import { useTheme as useCustomTheme } from '../components/ThemeProvider';
 
 const MainContent: React.FC = () => {
@@ -22,25 +22,27 @@ const MainContent: React.FC = () => {
         onThemeToggle={toggleTheme}
         onLogout={handleLogout}
       />
-      
-      <Box 
-        component="main" 
-        sx={{ 
-          flexGrow: 1, 
-          p: 3,
+
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
           width: { sm: `calc(100% - ${isExpanded ? 280 : 70}px)` },
-          ml: { xs: 0, md: `${isExpanded ? 280 : 70}px` },
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          Bem-vindo ao CliCenter
-        </Typography>
-        <Typography variant="body1">
-          Conteúdo principal da aplicação aqui.
-        </Typography>
-        
-        {/* Mobile Menu Button */}
-        {isMobile && <MobileMenuButton onClick={toggleMobile} />}
+        <TopBar
+          title="Dashboard"
+          onSidebarToggle={toggleMobile}
+        />
+
+        <Box sx={{ p: 3 }}>
+          <Typography variant="h4" gutterBottom>
+            Bem-vindo ao CliCenter
+          </Typography>
+          <Typography variant="body1">
+            Conteúdo principal da aplicação aqui.
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
