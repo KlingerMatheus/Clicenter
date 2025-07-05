@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import React, { createContext, useContext, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -10,6 +8,7 @@ import {
   Settings as SettingsIcon,
 } from '@mui/icons-material';
 import { MenuItem, UserInfo } from './SidebarContent';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface SidebarContextType {
   userInfo: UserInfo;
@@ -41,24 +40,42 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   userType
 }) => {
   const router = useRouter();
+  const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const userInfo = useMemo(() => {
+    if (user) {
+      const roleLabels = {
+        admin: 'Administrador',
+        medico: 'Médico',
+        paciente: 'Paciente'
+      };
+
+      return {
+        name: user.name,
+        role: roleLabels[user.role] || user.role,
+        avatar: user.name.split(' ').map(n => n[0]).join('').toUpperCase()
+      };
+    }
+
+    // Fallback para quando não há usuário logado
     switch (userType) {
       case 'admin':
-        return { name: 'João Silva', role: 'Administrador', avatar: 'JS' };
+        return { name: 'Administrador', role: 'Administrador', avatar: 'A' };
       case 'medico':
-        return { name: 'Dr. Maria Santos', role: 'Médico', avatar: 'MS' };
+        return { name: 'Médico', role: 'Médico', avatar: 'M' };
       case 'paciente':
-        return { name: 'Ana Costa', role: 'Paciente', avatar: 'AC' };
+        return { name: 'Paciente', role: 'Paciente', avatar: 'P' };
       default:
         return { name: 'Usuário', role: 'Usuário', avatar: 'U' };
     }
-  }, [userType]);
+  }, [user, userType]);
 
   const menuItems = useMemo(() => {
-    if (userType === 'admin') {
+    const userRole = user?.role || userType;
+
+    if (userRole === 'admin') {
       return [
         {
           text: 'Painel',
@@ -86,7 +103,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         onClick: () => console.log('Usuários clicked')
       },
     ];
-  }, [userType]);
+  }, [user?.role, userType, router]);
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
   const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
