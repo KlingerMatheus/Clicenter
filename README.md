@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CliCenter - Sistema de Gerenciamento Clínico
 
-## Getting Started
+Sistema completo de gerenciamento clínico com autenticação JWT, interface moderna e responsiva.
 
-First, run the development server:
+## Tecnologias
+
+### Frontend
+- Next.js 15 (App Router)
+- React 18
+- Material-UI 6
+- TypeScript
+- Framer Motion
+
+### Backend
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB (Mongoose)
+- JWT para autenticação
+- bcryptjs para hash de senhas
+
+## Como usar
+
+1. **Clone o repositório**
+   ```bash
+   git clone <url-do-repositorio>
+   cd clicenter
+   ```
+
+2. **Instale as dependências**
+   ```bash
+   npm install
+   ```
+
+3. **Configure o MongoDB**
+   - Instale MongoDB localmente ou use MongoDB Atlas
+   - Certifique-se que o MongoDB está rodando
+
+4. **Configure as variáveis de ambiente**
+   Crie um arquivo `.env` na pasta `server/`:
+   ```env
+   PORT=3001
+   MONGODB_URI=mongodb://localhost:27017/clicenter
+   JWT_SECRET=sua-chave-secreta-muito-segura-aqui
+   NODE_ENV=development
+   ```
+
+5. **Crie os usuários de teste**
+   ```bash
+   npm run server:create-test-users
+   ```
+
+6. **Inicie o servidor**
+   ```bash
+   npm run server:dev
+   ```
+
+7. **Em outro terminal, inicie o frontend**
+   ```bash
+   npm run app:dev
+   ```
+
+8. **Acesse a aplicação**
+   - URL: http://localhost:3000
+   - Clique em "Ver credenciais de teste" para ver todas as opções
+   - Credenciais disponíveis:
+     - **Admin:** admin@teste.com / admin
+     - **Médico:** medico@teste.com / medico
+     - **Paciente:** paciente@teste.com / paciente
+
+## Scripts Disponíveis
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Frontend
+npm run app:dev      # Desenvolvimento
+npm run app:build    # Build de produção
+npm run app:start    # Iniciar produção
+
+# Backend
+npm run server:dev           # Desenvolvimento
+npm run server:build         # Build de produção
+npm run server:start         # Iniciar produção
+npm run server:create-test-users  # Criar usuários de teste
+
+# Linting e Formatação
+npm run lint:check    # Verificar linting
+npm run lint:fix      # Corrigir linting
+npm run prettier:check # Verificar formatação
+npm run prettier:fix   # Corrigir formatação
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estrutura do Projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+├── src/                    # Frontend (Next.js)
+│   ├── app/               # App Router
+│   ├── components/        # Componentes React
+│   ├── contexts/          # Context API
+│   └── pages/             # Páginas da aplicação
+├── server/                # Backend (Node.js/Express)
+│   ├── src/
+│   │   ├── controllers/   # Controladores MVC
+│   │   ├── middleware/    # Middlewares
+│   │   ├── models/        # Modelos Mongoose
+│   │   ├── routes/        # Rotas da API
+│   │   ├── services/      # Serviços (Facade)
+│   │   └── config/        # Configurações
+│   └── examples/          # Exemplos de uso
+└── docs/                  # Documentação
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Segurança
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ Autenticação JWT
+- ✅ Hash de senhas com bcryptjs
+- ✅ Middleware de autorização por role
+- ✅ Validação de dados
+- ✅ Rate limiting
+- ✅ Headers de segurança (Helmet)
+- ✅ CORS configurado
