@@ -14,13 +14,13 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onThemeToggle, onLogout }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { 
-    userInfo, 
-    menuItems, 
-    isExpanded, 
-    isMobileOpen, 
-    toggleExpanded, 
-    closeMobile 
+  const {
+    userInfo,
+    menuItems,
+    isExpanded,
+    isMobileOpen,
+    toggleExpanded,
+    closeMobile
   } = useSidebar();
 
   const drawerWidth = isExpanded ? 280 : 70;

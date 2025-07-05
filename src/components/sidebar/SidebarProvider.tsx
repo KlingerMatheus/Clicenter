@@ -1,9 +1,13 @@
 'use client';
 
+'use client';
+
 import React, { createContext, useContext, useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Dashboard as DashboardIcon,
   People as PeopleIcon,
+  Settings as SettingsIcon,
 } from '@mui/icons-material';
 import { MenuItem, UserInfo } from './SidebarContent';
 
@@ -32,10 +36,11 @@ interface SidebarProviderProps {
   userType: 'admin' | 'paciente' | 'medico';
 }
 
-export const SidebarProvider: React.FC<SidebarProviderProps> = ({ 
-  children, 
-  userType 
+export const SidebarProvider: React.FC<SidebarProviderProps> = ({
+  children,
+  userType
 }) => {
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -52,18 +57,36 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     }
   }, [userType]);
 
-  const menuItems = useMemo(() => [
-    { 
-      text: 'Dashboard', 
-      icon: <DashboardIcon />,
-      onClick: () => console.log('Dashboard clicked')
-    },
-    { 
-      text: 'Usuários', 
-      icon: <PeopleIcon />,
-      onClick: () => console.log('Usuários clicked')
-    },
-  ], []);
+  const menuItems = useMemo(() => {
+    if (userType === 'admin') {
+      return [
+        {
+          text: 'Painel',
+          icon: <DashboardIcon />,
+          onClick: () => router.push('/admin/dashboard')
+        },
+        {
+          text: 'Gerenciar Usuários',
+          icon: <PeopleIcon />,
+          onClick: () => router.push('/admin/users')
+        },
+      ];
+    }
+
+    // Para outros tipos de usuário (será implementado posteriormente)
+    return [
+      {
+        text: 'Dashboard',
+        icon: <DashboardIcon />,
+        onClick: () => console.log('Dashboard clicked')
+      },
+      {
+        text: 'Usuários',
+        icon: <PeopleIcon />,
+        onClick: () => console.log('Usuários clicked')
+      },
+    ];
+  }, [userType]);
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
   const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
