@@ -1,0 +1,50 @@
+name: Auto Fix Lint and Format
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 1' # Every Monday at 2 AM
+
+jobs:
+  auto-fix:
+    runs-on: ubuntu-latest
+    name: Auto fix code quality issues
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Auto fix ESLint issues
+        run: npm run lint:fix
+
+      - name: Auto fix Prettier format
+        run: npm run prettier:fix
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.has-changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "🔧 Auto-fix lint and format issues"
+          git push 

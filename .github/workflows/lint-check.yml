@@ -1,10 +1,10 @@
-name: Lint and Prettier
+name: Lint and Format Check
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   push:
-    branches: [main]
+    branches: [main, develop]
 
 concurrency:
   group: ${{ github.ref }}
@@ -13,28 +13,29 @@ concurrency:
 jobs:
   lint-and-format:
     runs-on: ubuntu-latest
-    name: Check formatters
+    name: Check code quality
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install pnpm
-        run: npm install -g pnpm
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm ci
 
-      - name: Check ESLint format
-        run: pnpm lint:check
+      - name: Check TypeScript
+        run: npx tsc --noEmit
+
+      - name: Check ESLint
+        run: npm run lint:check
 
       - name: Check Prettier format
-        run: pnpm prettier:check
+        run: npm run prettier:check
 
-      - name: Verify if there are any changes after Prettier
-        run: git diff --exit-code
+      - name: Build project
+        run: npm run build
