@@ -295,15 +295,9 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
         showUserInfo={!isExpanded}
         menuItems={[
           {
-            label: 'Configurações',
-            icon: <SettingsIcon />,
-            onClick: handleSettings,
-          },
-          {
             label: 'Sair',
             icon: <LogoutIcon />,
             onClick: onLogout,
-            divider: true,
           },
         ]}
       />

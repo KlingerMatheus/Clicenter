@@ -28,11 +28,23 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Carregar preferência salva do localStorage
+    const savedMode = localStorage.getItem('theme-mode') as 'light' | 'dark';
+    if (savedMode) {
+      setMode(savedMode);
+    } else {
+      // Fallback para preferência do sistema
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setMode(prefersDark ? 'dark' : 'light');
+    }
     setMounted(true);
   }, []);
 
   const toggleTheme = () => {
-    setMode(mode === 'light' ? 'dark' : 'light');
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    setMode(newMode);
+    // Salvar preferência no localStorage
+    localStorage.setItem('theme-mode', newMode);
   };
 
   const theme = createTheme({
