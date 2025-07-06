@@ -6,11 +6,11 @@ import AdminLayout from '../../../components/AdminLayout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function AdminUsersPage() {
-    return (
-        <ProtectedRoute requiredRole="admin">
-            <AdminLayout title="Gerenciar Usuários">
-                <UserManagement />
-            </AdminLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="admin">
+      <AdminLayout title="Gerenciar Usuários">
+        <UserManagement />
+      </AdminLayout>
+    </ProtectedRoute>
+  );
+}

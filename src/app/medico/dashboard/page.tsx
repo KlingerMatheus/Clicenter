@@ -6,11 +6,11 @@ import MedicoLayout from '../../../components/MedicoLayout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function MedicoDashboardPage() {
-    return (
-        <ProtectedRoute requiredRole="medico">
-            <MedicoLayout title="Dashboard">
-                <Dashboard />
-            </MedicoLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="medico">
+      <MedicoLayout title="Dashboard">
+        <Dashboard />
+      </MedicoLayout>
+    </ProtectedRoute>
+  );
+}

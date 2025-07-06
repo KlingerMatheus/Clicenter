@@ -1,7 +1,10 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+} from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
 interface ThemeContextType {
@@ -34,7 +37,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       setMode(savedMode);
     } else {
       // Fallback para preferência do sistema
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
       setMode(prefersDark ? 'dark' : 'light');
     }
     setMounted(true);
@@ -80,4 +85,4 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );
-}; 
+};

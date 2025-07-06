@@ -5,7 +5,8 @@ import { Drawer, Box, useTheme } from '@mui/material';
 import { motion, PanInfo } from 'framer-motion';
 import SidebarContent, { SidebarContentProps } from './SidebarContent';
 
-export interface MobileSidebarProps extends Omit<SidebarContentProps, 'isMobile' | 'isExpanded'> {
+export interface MobileSidebarProps
+  extends Omit<SidebarContentProps, 'isMobile' | 'isExpanded'> {
   isOpen: boolean;
   onClose: () => void;
 }
@@ -80,7 +81,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
         >
           <motion.div
             whileDrag={{ scale: 1.2 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
             <Box
               sx={{
@@ -99,4 +100,4 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
   );
 };
 
-export default MobileSidebar; 
+export default MobileSidebar;

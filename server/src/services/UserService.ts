@@ -34,7 +34,10 @@ export class UserService {
     }
   }
 
-  async updateUser(id: string, userData: Partial<IUser>): Promise<IUser | null> {
+  async updateUser(
+    id: string,
+    userData: Partial<IUser>
+  ): Promise<IUser | null> {
     try {
       const update: Partial<IUser> = { ...userData };
       if (userData.password) {
@@ -42,11 +45,10 @@ export class UserService {
       } else {
         delete update.password;
       }
-      return await User.findByIdAndUpdate(
-        id,
-        update,
-        { new: true, runValidators: true }
-      );
+      return await User.findByIdAndUpdate(id, update, {
+        new: true,
+        runValidators: true,
+      });
     } catch (error) {
       throw new Error(`Erro ao atualizar usuário: ${error}`);
     }
@@ -65,7 +67,7 @@ export class UserService {
     try {
       const user = await User.findById(id);
       if (!user) return null;
-      
+
       user.isActive = !user.isActive;
       return await user.save();
     } catch (error) {
@@ -74,4 +76,4 @@ export class UserService {
   }
 }
 
-export default new UserService(); 
+export default new UserService();

@@ -33,6 +33,7 @@ server/
 ## Funcionalidades
 
 ### Gerenciamento de Usuários (Admin)
+
 - ✅ Criar usuário
 - ✅ Listar todos os usuários
 - ✅ Buscar usuário por ID
@@ -43,12 +44,14 @@ server/
 ## Configuração
 
 1. **Instalar dependências:**
+
    ```bash
    npm install
    ```
 
 2. **Configurar variáveis de ambiente:**
    Crie um arquivo `.env` na pasta `server/` com:
+
    ```
    PORT=3001
    MONGO_DB_URL=mongodb://localhost:27017/clicenter
@@ -56,10 +59,11 @@ server/
    ```
 
 3. **Executar o servidor:**
+
    ```bash
    # Desenvolvimento
    npm run server:dev
-   
+
    # Produção
    npm run server:build
    npm run server:start
@@ -69,30 +73,31 @@ server/
 
 ### Usuários
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| POST | `/api/users` | Criar novo usuário |
-| GET | `/api/users` | Listar todos os usuários |
-| GET | `/api/users/:id` | Buscar usuário por ID |
-| PUT | `/api/users/:id` | Atualizar usuário |
-| DELETE | `/api/users/:id` | Deletar usuário |
-| PATCH | `/api/users/:id/toggle-status` | Ativar/Desativar usuário |
+| Método | Endpoint                       | Descrição                |
+| ------ | ------------------------------ | ------------------------ |
+| POST   | `/api/users`                   | Criar novo usuário       |
+| GET    | `/api/users`                   | Listar todos os usuários |
+| GET    | `/api/users/:id`               | Buscar usuário por ID    |
+| PUT    | `/api/users/:id`               | Atualizar usuário        |
+| DELETE | `/api/users/:id`               | Deletar usuário          |
+| PATCH  | `/api/users/:id/toggle-status` | Ativar/Desativar usuário |
 
 ### Health Check
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/health` | Verificar status do servidor |
+
+| Método | Endpoint  | Descrição                    |
+| ------ | --------- | ---------------------------- |
+| GET    | `/health` | Verificar status do servidor |
 
 ## Modelo de Usuário
 
 ```typescript
 interface IUser {
-  name: string;           // Nome do usuário (obrigatório)
-  email: string;          // Email único (obrigatório)
+  name: string; // Nome do usuário (obrigatório)
+  email: string; // Email único (obrigatório)
   role: 'admin' | 'user'; // Papel do usuário
-  isActive: boolean;      // Status ativo/inativo
-  createdAt: Date;        // Data de criação
-  updatedAt: Date;        // Data de atualização
+  isActive: boolean; // Status ativo/inativo
+  createdAt: Date; // Data de criação
+  updatedAt: Date; // Data de atualização
 }
 ```
 
@@ -114,9 +119,10 @@ interface IUser {
 ## Respostas da API
 
 Todas as respostas seguem o padrão:
+
 ```json
 {
   "success": true/false,
   "data": {...} | "message": "..."
 }
-``` 
+```

@@ -11,4 +11,4 @@ router.post('/login', AuthController.login);
 router.get('/me', auth, AuthController.me);
 router.put('/profile', auth, AuthController.updateProfile);
 
-export default router; 
+export default router;

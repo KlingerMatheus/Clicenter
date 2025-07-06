@@ -16,47 +16,47 @@ import PatientDashboard from '../../pages/paciente/Dashboard';
 import AccessDenied from '../../components/AccessDenied';
 
 export default function DashboardPage() {
-    const { user, isLoading } = useAuth();
-    const router = useRouter();
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (!isLoading && !user) {
-            router.push('/login');
-        }
-    }, [user, isLoading, router]);
-
-    if (isLoading) {
-        return <ContentLoading />;
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/login');
     }
+  }, [user, isLoading, router]);
 
-    if (!user) {
-        return null;
-    }
+  if (isLoading) {
+    return <ContentLoading />;
+  }
 
-    // Renderizar baseado no tipo de usuário
-    switch (user.role) {
-        case 'admin':
-            return (
-                <AdminLayout title="Painel">
-                    <AdminDashboard />
-                </AdminLayout>
-            );
+  if (!user) {
+    return null;
+  }
 
-        case 'medico':
-            return (
-                <MedicoLayout title="Dashboard">
-                    <MedicoDashboard />
-                </MedicoLayout>
-            );
+  // Renderizar baseado no tipo de usuário
+  switch (user.role) {
+    case 'admin':
+      return (
+        <AdminLayout title="Painel">
+          <AdminDashboard />
+        </AdminLayout>
+      );
 
-        case 'paciente':
-            return (
-                <PatientLayout title="Dashboard">
-                    <PatientDashboard />
-                </PatientLayout>
-            );
+    case 'medico':
+      return (
+        <MedicoLayout title="Dashboard">
+          <MedicoDashboard />
+        </MedicoLayout>
+      );
 
-        default:
-            return <AccessDenied message="Tipo de usuário não reconhecido." />;
-    }
-} 
+    case 'paciente':
+      return (
+        <PatientLayout title="Dashboard">
+          <PatientDashboard />
+        </PatientLayout>
+      );
+
+    default:
+      return <AccessDenied message="Tipo de usuário não reconhecido." />;
+  }
+}

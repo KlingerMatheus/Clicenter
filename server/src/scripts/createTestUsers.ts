@@ -5,26 +5,26 @@ import User from '../models/User';
 const createTestUsers = async () => {
   try {
     await connectDB();
-    
+
     const testUsers = [
       {
         name: 'Administrador',
         email: 'admin@teste.com',
         password: 'admin',
-        role: 'admin' as const
+        role: 'admin' as const,
       },
       {
         name: 'Dr. Maria Santos',
         email: 'medico@teste.com',
         password: 'medico',
-        role: 'medico' as const
+        role: 'medico' as const,
       },
       {
         name: 'João Silva',
         email: 'paciente@teste.com',
         password: 'paciente',
-        role: 'paciente' as const
-      }
+        role: 'paciente' as const,
+      },
     ];
 
     console.log('🔧 Criando usuários de teste...\n');
@@ -39,14 +39,14 @@ const createTestUsers = async () => {
 
       // Criar hash da senha
       const hashedPassword = await bcrypt.hash(userData.password, 10);
-      
+
       // Criar usuário
       const user = new User({
         name: userData.name,
         email: userData.email,
         password: hashedPassword,
         role: userData.role,
-        isActive: true
+        isActive: true,
       });
 
       await user.save();
@@ -54,7 +54,7 @@ const createTestUsers = async () => {
       console.log(`   Email: ${userData.email}`);
       console.log(`   Senha: ${userData.password}\n`);
     }
-    
+
     console.log('🎉 Todos os usuários de teste foram criados!');
     process.exit(0);
   } catch (error) {
@@ -63,4 +63,4 @@ const createTestUsers = async () => {
   }
 };
 
-createTestUsers(); 
+createTestUsers();

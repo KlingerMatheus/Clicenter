@@ -47,4 +47,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add -A
           git commit -m "🔧 Auto-fix lint and format issues"
-          git push 
+          git push

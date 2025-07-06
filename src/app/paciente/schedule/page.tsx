@@ -4,11 +4,11 @@ import ScheduleConsultationPage from '../../../pages/paciente/ScheduleConsultati
 import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function PacienteSchedulePage() {
-    return (
-        <ProtectedRoute requiredRole="paciente">
-            <PatientLayout title="Agendar Consulta">
-                <ScheduleConsultationPage />
-            </PatientLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="paciente">
+      <PatientLayout title="Agendar Consulta">
+        <ScheduleConsultationPage />
+      </PatientLayout>
+    </ProtectedRoute>
+  );
+}

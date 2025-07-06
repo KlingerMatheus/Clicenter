@@ -4,7 +4,8 @@ import React from 'react';
 import { Drawer, useTheme } from '@mui/material';
 import SidebarContent, { SidebarContentProps } from './SidebarContent';
 
-export interface DesktopSidebarProps extends Omit<SidebarContentProps, 'isMobile'> {
+export interface DesktopSidebarProps
+  extends Omit<SidebarContentProps, 'isMobile'> {
   isExpanded: boolean;
   width: number;
 }
@@ -29,13 +30,18 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           borderRight: `1px solid ${theme.palette.divider}`,
           transition: 'width 0.2s ease-in-out',
           overflowX: 'hidden',
-          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+          boxShadow:
+            '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
         },
       }}
     >
-      <SidebarContent {...contentProps} isMobile={false} isExpanded={isExpanded} />
+      <SidebarContent
+        {...contentProps}
+        isMobile={false}
+        isExpanded={isExpanded}
+      />
     </Drawer>
   );
 };
 
-export default DesktopSidebar; 
+export default DesktopSidebar;

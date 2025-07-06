@@ -5,6 +5,7 @@ Sistema completo de gerenciamento clínico com autenticação JWT, interface mod
 ## Tecnologias
 
 ### Frontend
+
 - Next.js 15 (App Router)
 - React 18
 - Material-UI 6
@@ -12,6 +13,7 @@ Sistema completo de gerenciamento clínico com autenticação JWT, interface mod
 - Framer Motion
 
 ### Backend
+
 - Node.js
 - Express.js
 - TypeScript
@@ -22,12 +24,14 @@ Sistema completo de gerenciamento clínico com autenticação JWT, interface mod
 ## Como usar
 
 1. **Clone o repositório**
+
    ```bash
    git clone <url-do-repositorio>
    cd clicenter
    ```
 
 2. **Instale as dependências**
+
    ```bash
    npm install
    ```
@@ -38,6 +42,7 @@ Sistema completo de gerenciamento clínico com autenticação JWT, interface mod
 
 4. **Configure as variáveis de ambiente**
    Crie um arquivo `.env` na pasta `server/`:
+
    ```env
    PORT=3001
    MONGODB_URI=mongodb://localhost:27017/clicenter
@@ -46,16 +51,19 @@ Sistema completo de gerenciamento clínico com autenticação JWT, interface mod
    ```
 
 5. **Crie os usuários de teste**
+
    ```bash
    npm run server:create-test-users
    ```
 
 6. **Inicie o servidor**
+
    ```bash
    npm run server:dev
    ```
 
 7. **Em outro terminal, inicie o frontend**
+
    ```bash
    npm run app:dev
    ```

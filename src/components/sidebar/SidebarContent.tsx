@@ -78,14 +78,17 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
   return (
     <>
       {/* Header */}
-      <Box sx={{
-        py: 2,
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        position: 'relative',
-        background: theme.palette.mode === 'dark'
-          ? 'rgba(25, 118, 210, 1)'
-          : 'rgba(240, 240, 240, 1)',
-      }}>
+      <Box
+        sx={{
+          py: 2,
+          borderBottom: `1px solid ${theme.palette.divider}`,
+          position: 'relative',
+          background:
+            theme.palette.mode === 'dark'
+              ? 'rgba(25, 118, 210, 1)'
+              : 'rgba(240, 240, 240, 1)',
+        }}
+      >
         <ListItem disablePadding>
           <ListItemButton
             onClick={handleProfileClick}
@@ -111,33 +114,56 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
               },
             }}
           >
-            <ListItemIcon sx={{ minWidth: 40, display: 'flex', justifyContent: 'center' }}>
-              <Avatar sx={{
-                bgcolor: theme.palette.mode === 'dark'
-                  ? theme.palette.grey[800]
-                  : theme.palette.primary.main,
-                width: 36,
-                height: 36,
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                color: theme.palette.mode === 'dark'
-                  ? theme.palette.common.white
-                  : theme.palette.primary.contrastText,
-              }}>
+            <ListItemIcon
+              sx={{ minWidth: 40, display: 'flex', justifyContent: 'center' }}
+            >
+              <Avatar
+                sx={{
+                  bgcolor:
+                    theme.palette.mode === 'dark'
+                      ? theme.palette.grey[800]
+                      : theme.palette.primary.main,
+                  width: 36,
+                  height: 36,
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color:
+                    theme.palette.mode === 'dark'
+                      ? theme.palette.common.white
+                      : theme.palette.primary.contrastText,
+                }}
+              >
                 {userInfo.avatar}
               </Avatar>
             </ListItemIcon>
             {isExpanded && (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexGrow: 1 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1.5,
+                  flexGrow: 1,
+                }}
+              >
                 <ListItemText
                   primary={userInfo.name}
                   secondary={userInfo.role}
                   sx={{
-                    '& .MuiTypography-root': { fontSize: '0.875rem', whiteSpace: 'nowrap', fontWeight: 500 },
-                    '& .MuiListItemText-secondary': { fontSize: '0.75rem', opacity: 0.7 }
+                    '& .MuiTypography-root': {
+                      fontSize: '0.875rem',
+                      whiteSpace: 'nowrap',
+                      fontWeight: 500,
+                    },
+                    '& .MuiListItemText-secondary': {
+                      fontSize: '0.75rem',
+                      opacity: 0.7,
+                    },
                   }}
                 />
-                <KeyboardArrowDownIcon fontSize="small" sx={{ color: theme.palette.text.secondary, opacity: 0.6 }} />
+                <KeyboardArrowDownIcon
+                  fontSize="small"
+                  sx={{ color: theme.palette.text.secondary, opacity: 0.6 }}
+                />
               </Box>
             )}
           </ListItemButton>
@@ -145,13 +171,16 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
       </Box>
 
       {/* Menu */}
-      <Box sx={{
-        flexGrow: 1,
-        py: 1,
-        background: theme.palette.mode === 'dark'
-          ? 'rgba(25, 118, 210, 1)'
-          : 'rgba(240, 240, 240, 1)',
-      }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          py: 1,
+          background:
+            theme.palette.mode === 'dark'
+              ? 'rgba(25, 118, 210, 1)'
+              : 'rgba(240, 240, 240, 1)',
+        }}
+      >
         <List>
           {menuItems.map((item) => {
             const isActive = item.path && pathname === item.path;
@@ -173,14 +202,16 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                         backgroundColor: theme.palette.action.hover,
                       },
                       '&.Mui-selected': {
-                        backgroundColor: theme.palette.mode === 'dark'
-                          ? 'rgba(255, 255, 255, 0.75)'
-                          : 'rgba(25, 118, 210, 0.08)',
+                        backgroundColor:
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255, 255, 255, 0.75)'
+                            : 'rgba(25, 118, 210, 0.08)',
                         color: theme.palette.primary.main,
                         '&:hover': {
-                          backgroundColor: theme.palette.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.85)'
-                            : 'rgba(25, 118, 210, 0.12)',
+                          backgroundColor:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.85)'
+                              : 'rgba(25, 118, 210, 0.12)',
                         },
                         '&::before': {
                           content: '""',
@@ -197,12 +228,16 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                       },
                     }}
                   >
-                    <ListItemIcon sx={{
-                      minWidth: 40,
-                      color: isActive
-                        ? theme.palette.primary.main
-                        : (theme.palette.mode === 'dark' ? 'inherit' : theme.palette.primary.main)
-                    }}>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 40,
+                        color: isActive
+                          ? theme.palette.primary.main
+                          : theme.palette.mode === 'dark'
+                            ? 'inherit'
+                            : theme.palette.primary.main,
+                      }}
+                    >
                       {item.icon}
                     </ListItemIcon>
                     {isExpanded && (
@@ -212,8 +247,8 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                           '& .MuiTypography-root': {
                             fontSize: '0.875rem',
                             whiteSpace: 'nowrap',
-                            fontWeight: isActive ? 600 : 500
-                          }
+                            fontWeight: isActive ? 600 : 500,
+                          },
                         }}
                       />
                     )}
@@ -226,16 +261,22 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
       </Box>
 
       {/* Footer - Show on both desktop and mobile */}
-      <Box sx={{
-        borderTop: `1px solid ${theme.palette.divider}`,
-        py: 1,
-        background: theme.palette.mode === 'dark'
-          ? 'rgba(25, 118, 210, 1)'
-          : 'rgba(240, 240, 240, 1)',
-      }}>
+      <Box
+        sx={{
+          borderTop: `1px solid ${theme.palette.divider}`,
+          py: 1,
+          background:
+            theme.palette.mode === 'dark'
+              ? 'rgba(25, 118, 210, 1)'
+              : 'rgba(240, 240, 240, 1)',
+        }}
+      >
         <List>
           <ListItem disablePadding>
-            <Tooltip title={isExpanded ? '' : 'Alternar Tema'} placement="right">
+            <Tooltip
+              title={isExpanded ? '' : 'Alternar Tema'}
+              placement="right"
+            >
               <ListItemButton
                 onClick={onThemeToggle}
                 sx={{
@@ -248,19 +289,42 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                   },
                 }}
               >
-                <ListItemIcon sx={{
-                  minWidth: 40,
-                  color: theme.palette.mode === 'dark' ? 'inherit' : theme.palette.primary.main
-                }}>
-                  {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+                <ListItemIcon
+                  sx={{
+                    minWidth: 40,
+                    color:
+                      theme.palette.mode === 'dark'
+                        ? 'inherit'
+                        : theme.palette.primary.main,
+                  }}
+                >
+                  {theme.palette.mode === 'dark' ? (
+                    <LightModeIcon />
+                  ) : (
+                    <DarkModeIcon />
+                  )}
                 </ListItemIcon>
-                {isExpanded && <ListItemText primary="Alternar Tema" sx={{ '& .MuiTypography-root': { fontSize: '0.875rem', whiteSpace: 'nowrap', fontWeight: 500 } }} />}
+                {isExpanded && (
+                  <ListItemText
+                    primary="Alternar Tema"
+                    sx={{
+                      '& .MuiTypography-root': {
+                        fontSize: '0.875rem',
+                        whiteSpace: 'nowrap',
+                        fontWeight: 500,
+                      },
+                    }}
+                  />
+                )}
               </ListItemButton>
             </Tooltip>
           </ListItem>
           {!isMobile && onToggleSidebar && (
             <ListItem disablePadding>
-              <Tooltip title={isExpanded ? '' : 'Minimizar Menu'} placement="right">
+              <Tooltip
+                title={isExpanded ? '' : 'Minimizar Menu'}
+                placement="right"
+              >
                 <ListItemButton
                   onClick={onToggleSidebar}
                   sx={{
@@ -272,13 +336,29 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                     },
                   }}
                 >
-                  <ListItemIcon sx={{
-                    minWidth: 40,
-                    color: theme.palette.mode === 'dark' ? 'inherit' : theme.palette.primary.main
-                  }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 40,
+                      color:
+                        theme.palette.mode === 'dark'
+                          ? 'inherit'
+                          : theme.palette.primary.main,
+                    }}
+                  >
                     {isExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                   </ListItemIcon>
-                  {isExpanded && <ListItemText primary="Minimizar Menu" sx={{ '& .MuiTypography-root': { fontSize: '0.875rem', whiteSpace: 'nowrap', fontWeight: 500 } }} />}
+                  {isExpanded && (
+                    <ListItemText
+                      primary="Minimizar Menu"
+                      sx={{
+                        '& .MuiTypography-root': {
+                          fontSize: '0.875rem',
+                          whiteSpace: 'nowrap',
+                          fontWeight: 500,
+                        },
+                      }}
+                    />
+                  )}
                 </ListItemButton>
               </Tooltip>
             </ListItem>
@@ -305,4 +385,4 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
   );
 };
 
-export default SidebarContent; 
+export default SidebarContent;

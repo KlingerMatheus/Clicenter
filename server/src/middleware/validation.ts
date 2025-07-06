@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 
-export const validateUserData = (req: Request, res: Response, next: NextFunction): void => {
+export const validateUserData = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
   const { name, email, role, password } = req.body;
 
   if (!name || typeof name !== 'string' || name.trim().length === 0) {
     res.status(400).json({
       success: false,
-      message: 'Nome é obrigatório e deve ser uma string válida'
+      message: 'Nome é obrigatório e deve ser uma string válida',
     });
     return;
   }
@@ -14,7 +18,7 @@ export const validateUserData = (req: Request, res: Response, next: NextFunction
   if (!email || typeof email !== 'string' || email.trim().length === 0) {
     res.status(400).json({
       success: false,
-      message: 'Email é obrigatório e deve ser uma string válida'
+      message: 'Email é obrigatório e deve ser uma string válida',
     });
     return;
   }
@@ -23,7 +27,7 @@ export const validateUserData = (req: Request, res: Response, next: NextFunction
   if (!emailRegex.test(email)) {
     res.status(400).json({
       success: false,
-      message: 'Email deve ter um formato válido'
+      message: 'Email deve ter um formato válido',
     });
     return;
   }
@@ -31,7 +35,7 @@ export const validateUserData = (req: Request, res: Response, next: NextFunction
   if (role && !['medico', 'paciente'].includes(role)) {
     res.status(400).json({
       success: false,
-      message: 'Role deve ser "medico" ou "paciente"'
+      message: 'Role deve ser "medico" ou "paciente"',
     });
     return;
   }
@@ -39,10 +43,11 @@ export const validateUserData = (req: Request, res: Response, next: NextFunction
   // Senha obrigatória apenas na criação
   if (req.method === 'POST') {
     if (!password || typeof password !== 'string' || password.length < 4) {
-      if (!(role === 'admin' && !password)) { // admin pode ser padrão
+      if (!(role === 'admin' && !password)) {
+        // admin pode ser padrão
         res.status(400).json({
           success: false,
-          message: 'Senha é obrigatória e deve ter pelo menos 4 caracteres'
+          message: 'Senha é obrigatória e deve ter pelo menos 4 caracteres',
         });
         return;
       }
@@ -52,16 +57,20 @@ export const validateUserData = (req: Request, res: Response, next: NextFunction
   next();
 };
 
-export const validateUserId = (req: Request, res: Response, next: NextFunction): void => {
+export const validateUserId = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
   const { id } = req.params;
 
   if (!id || id.trim().length === 0) {
     res.status(400).json({
       success: false,
-      message: 'ID do usuário é obrigatório'
+      message: 'ID do usuário é obrigatório',
     });
     return;
   }
 
   next();
-}; 
+};

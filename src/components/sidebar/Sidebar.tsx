@@ -20,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onThemeToggle, onLogout }) => {
     isExpanded,
     isMobileOpen,
     toggleExpanded,
-    closeMobile
+    closeMobile,
   } = useSidebar();
 
   const drawerWidth = isExpanded ? 280 : 70;
@@ -51,4 +51,4 @@ const Sidebar: React.FC<SidebarProps> = ({ onThemeToggle, onLogout }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

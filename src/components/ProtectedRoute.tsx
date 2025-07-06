@@ -8,33 +8,36 @@ import ContentLoading from './ContentLoading';
 import AccessDenied from './AccessDenied';
 
 interface ProtectedRouteProps {
-    children: React.ReactNode;
-    requiredRole?: 'admin' | 'medico' | 'paciente';
+  children: React.ReactNode;
+  requiredRole?: 'admin' | 'medico' | 'paciente';
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
-    const { user, isLoading } = useAuth();
-    const router = useRouter();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  requiredRole,
+}) => {
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
 
-    React.useEffect(() => {
-        if (!isLoading && !user) {
-            router.push('/login');
-        }
-    }, [user, isLoading, router]);
-
-    if (isLoading) {
-        return <ContentLoading />;
+  React.useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/login');
     }
+  }, [user, isLoading, router]);
 
-    if (!user) {
-        return null; // Será redirecionado pelo useEffect
-    }
+  if (isLoading) {
+    return <ContentLoading />;
+  }
 
-    if (requiredRole && user.role !== requiredRole) {
-        return <AccessDenied />;
-    }
+  if (!user) {
+    return null; // Será redirecionado pelo useEffect
+  }
 
-    return <>{children}</>;
+  if (requiredRole && user.role !== requiredRole) {
+    return <AccessDenied />;
+  }
+
+  return <>{children}</>;
 };
 
-export default ProtectedRoute; 
+export default ProtectedRoute;

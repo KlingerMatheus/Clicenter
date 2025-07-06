@@ -4,11 +4,11 @@ import SettingsPage from '../../../pages/paciente/SettingsPage';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function PacienteSettingsPage() {
-    return (
-        <ProtectedRoute requiredRole="paciente">
-            <PatientLayout title="Configurações">
-                <SettingsPage />
-            </PatientLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="paciente">
+      <PatientLayout title="Configurações">
+        <SettingsPage />
+      </PatientLayout>
+    </ProtectedRoute>
+  );
+}

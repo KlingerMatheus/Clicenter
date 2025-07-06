@@ -6,7 +6,7 @@ dotenv.config();
 const connectDB = async (): Promise<void> => {
   try {
     const mongoURI = process.env.MONGO_DB_URL;
-    
+
     if (!mongoURI) {
       throw new Error('MONGO_DB_URL não está definida no arquivo .env');
     }
@@ -19,4 +19,4 @@ const connectDB = async (): Promise<void> => {
   }
 };
 
-export default connectDB; 
+export default connectDB;

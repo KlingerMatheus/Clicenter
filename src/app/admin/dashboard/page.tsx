@@ -6,11 +6,11 @@ import AdminLayout from '../../../components/AdminLayout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function AdminDashboardPage() {
-    return (
-        <ProtectedRoute requiredRole="admin">
-            <AdminLayout title="Painel">
-                <Dashboard />
-            </AdminLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="admin">
+      <AdminLayout title="Painel">
+        <Dashboard />
+      </AdminLayout>
+    </ProtectedRoute>
+  );
+}

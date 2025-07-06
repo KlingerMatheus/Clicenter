@@ -58,4 +58,4 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ onClick }) => {
   );
 };
 
-export default MobileMenuButton; 
+export default MobileMenuButton;

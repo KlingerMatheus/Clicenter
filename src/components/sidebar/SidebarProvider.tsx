@@ -40,7 +40,7 @@ interface SidebarProviderProps {
 
 export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   children,
-  userType
+  userType,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -53,13 +53,17 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       const roleLabels = {
         admin: 'Administrador',
         medico: 'Médico',
-        paciente: 'Paciente'
+        paciente: 'Paciente',
       };
 
       return {
         name: user.name,
         role: roleLabels[user.role] || user.role,
-        avatar: user.name.split(' ').map(n => n[0]).join('').toUpperCase()
+        avatar: user.name
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .toUpperCase(),
       };
     }
 
@@ -85,31 +89,31 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
           text: 'Painel',
           icon: <DashboardIcon />,
           path: '/dashboard',
-          onClick: () => router.push('/dashboard')
+          onClick: () => router.push('/dashboard'),
         },
         {
           text: 'Gerenciar Usuários',
           icon: <PeopleIcon />,
           path: '/admin/users',
-          onClick: () => router.push('/admin/users')
+          onClick: () => router.push('/admin/users'),
         },
         {
           text: 'Consultas',
           icon: <EventIcon />,
           path: '/admin/consultations',
-          onClick: () => router.push('/admin/consultations')
+          onClick: () => router.push('/admin/consultations'),
         },
         {
           text: 'Históricos',
           icon: <MedicalIcon />,
           path: '/admin/medical-records',
-          onClick: () => router.push('/admin/medical-records')
+          onClick: () => router.push('/admin/medical-records'),
         },
         {
           text: 'Configurações',
           icon: <SettingsIcon />,
           path: '/admin/settings',
-          onClick: () => router.push('/admin/settings')
+          onClick: () => router.push('/admin/settings'),
         },
       ];
     }
@@ -121,25 +125,25 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
           text: 'Dashboard',
           icon: <DashboardIcon />,
           path: '/dashboard',
-          onClick: () => router.push('/dashboard')
+          onClick: () => router.push('/dashboard'),
         },
         {
           text: 'Minhas Consultas',
           icon: <EventIcon />,
           path: '/medico/consultations',
-          onClick: () => router.push('/medico/consultations')
+          onClick: () => router.push('/medico/consultations'),
         },
         {
           text: 'Meus Pacientes',
           icon: <PeopleIcon />,
           path: '/medico/patients',
-          onClick: () => router.push('/medico/patients')
+          onClick: () => router.push('/medico/patients'),
         },
         {
           text: 'Configurações',
           icon: <SettingsIcon />,
           path: '/medico/settings',
-          onClick: () => router.push('/medico/settings')
+          onClick: () => router.push('/medico/settings'),
         },
       ];
     }
@@ -151,31 +155,31 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
           text: 'Dashboard',
           icon: <DashboardIcon />,
           path: '/dashboard',
-          onClick: () => router.push('/dashboard')
+          onClick: () => router.push('/dashboard'),
         },
         {
           text: 'Agendar Consulta',
           icon: <AddIcon />,
           path: '/paciente/schedule',
-          onClick: () => router.push('/paciente/schedule')
+          onClick: () => router.push('/paciente/schedule'),
         },
         {
           text: 'Minhas Consultas',
           icon: <EventIcon />,
           path: '/paciente/consultations',
-          onClick: () => router.push('/paciente/consultations')
+          onClick: () => router.push('/paciente/consultations'),
         },
         {
           text: 'Meu Histórico',
           icon: <MedicalIcon />,
           path: '/paciente/medical-record',
-          onClick: () => router.push('/paciente/medical-record')
+          onClick: () => router.push('/paciente/medical-record'),
         },
         {
           text: 'Configurações',
           icon: <SettingsIcon />,
           path: '/paciente/settings',
-          onClick: () => router.push('/paciente/settings')
+          onClick: () => router.push('/paciente/settings'),
         },
       ];
     }
@@ -186,13 +190,13 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         text: 'Dashboard',
         icon: <DashboardIcon />,
         path: '/dashboard',
-        onClick: () => console.log('Dashboard clicked')
+        onClick: () => console.log('Dashboard clicked'),
       },
       {
         text: 'Usuários',
         icon: <PeopleIcon />,
         path: '/users',
-        onClick: () => console.log('Usuários clicked')
+        onClick: () => console.log('Usuários clicked'),
       },
     ];
   }, [user?.role, userType, router]);
@@ -212,8 +216,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   };
 
   return (
-    <SidebarContext.Provider value={value}>
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
   );
-}; 
+};

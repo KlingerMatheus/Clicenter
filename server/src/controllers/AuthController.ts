@@ -11,17 +11,17 @@ export class AuthController {
       if (!email || !password) {
         res.status(400).json({
           success: false,
-          message: 'Email e senha são obrigatórios'
+          message: 'Email e senha são obrigatórios',
         });
         return;
       }
 
       const user = await User.findOne({ email }).select('+password');
-      
+
       if (!user) {
         res.status(401).json({
           success: false,
-          message: 'Email ou senha inválidos'
+          message: 'Email ou senha inválidos',
         });
         return;
       }
@@ -29,17 +29,17 @@ export class AuthController {
       if (!user.isActive) {
         res.status(401).json({
           success: false,
-          message: 'Usuário inativo'
+          message: 'Usuário inativo',
         });
         return;
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
-      
+
       if (!isPasswordValid) {
         res.status(401).json({
           success: false,
-          message: 'Email ou senha inválidos'
+          message: 'Email ou senha inválidos',
         });
         return;
       }
@@ -55,20 +55,20 @@ export class AuthController {
         name: user.name,
         email: user.email,
         role: user.role,
-        isActive: user.isActive
+        isActive: user.isActive,
       };
 
       res.status(200).json({
         success: true,
         data: {
           user: userResponse,
-          token
-        }
+          token,
+        },
       });
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Erro interno do servidor'
+        message: 'Erro interno do servidor',
       });
     }
   }
@@ -77,15 +77,15 @@ export class AuthController {
     try {
       // O usuário já está disponível através do middleware de auth
       const user = (req as any).user;
-      
+
       res.status(200).json({
         success: true,
-        data: user
+        data: user,
       });
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Erro interno do servidor'
+        message: 'Erro interno do servidor',
       });
     }
   }
@@ -99,17 +99,20 @@ export class AuthController {
       if (!name || !email) {
         res.status(400).json({
           success: false,
-          message: 'Nome e email são obrigatórios'
+          message: 'Nome e email são obrigatórios',
         });
         return;
       }
 
       // Verificar se o email já está em uso por outro usuário
-      const existingUser = await User.findOne({ email, _id: { $ne: user._id } });
+      const existingUser = await User.findOne({
+        email,
+        _id: { $ne: user._id },
+      });
       if (existingUser) {
         res.status(400).json({
           success: false,
-          message: 'Este email já está em uso'
+          message: 'Este email já está em uso',
         });
         return;
       }
@@ -122,18 +125,21 @@ export class AuthController {
         if (!currentPassword) {
           res.status(400).json({
             success: false,
-            message: 'Senha atual é obrigatória para alterar a senha'
+            message: 'Senha atual é obrigatória para alterar a senha',
           });
           return;
         }
 
         const currentUser = await User.findById(user._id).select('+password');
-        const isCurrentPasswordValid = await bcrypt.compare(currentPassword, currentUser!.password);
-        
+        const isCurrentPasswordValid = await bcrypt.compare(
+          currentPassword,
+          currentUser!.password
+        );
+
         if (!isCurrentPasswordValid) {
           res.status(400).json({
             success: false,
-            message: 'Senha atual incorreta'
+            message: 'Senha atual incorreta',
           });
           return;
         }
@@ -142,16 +148,15 @@ export class AuthController {
       }
 
       // Atualizar usuário
-      const updatedUser = await User.findByIdAndUpdate(
-        user._id,
-        updateData,
-        { new: true, runValidators: true }
-      );
+      const updatedUser = await User.findByIdAndUpdate(user._id, updateData, {
+        new: true,
+        runValidators: true,
+      });
 
       if (!updatedUser) {
         res.status(404).json({
           success: false,
-          message: 'Usuário não encontrado'
+          message: 'Usuário não encontrado',
         });
         return;
       }
@@ -159,15 +164,16 @@ export class AuthController {
       res.status(200).json({
         success: true,
         data: updatedUser,
-        message: 'Perfil atualizado com sucesso'
+        message: 'Perfil atualizado com sucesso',
       });
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: error instanceof Error ? error.message : 'Erro interno do servidor'
+        message:
+          error instanceof Error ? error.message : 'Erro interno do servidor',
       });
     }
   }
 }
 
-export default new AuthController(); 
+export default new AuthController();

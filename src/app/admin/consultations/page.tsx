@@ -4,11 +4,11 @@ import ConsultationsPage from '../../../pages/admin/ConsultationsPage';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 
 export default function AdminConsultationsPage() {
-    return (
-        <ProtectedRoute requiredRole="admin">
-            <AdminLayout title="Consultas">
-                <ConsultationsPage />
-            </AdminLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="admin">
+      <AdminLayout title="Consultas">
+        <ConsultationsPage />
+      </AdminLayout>
+    </ProtectedRoute>
+  );
+}

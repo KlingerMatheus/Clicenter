@@ -6,11 +6,11 @@ import ProtectedRoute from '../../../components/ProtectedRoute';
 import ConsultationsPage from '../../../pages/medico/ConsultationsPage';
 
 export default function MedicoConsultationsPage() {
-    return (
-        <ProtectedRoute requiredRole="medico">
-            <MedicoLayout title="Minhas Consultas">
-                <ConsultationsPage />
-            </MedicoLayout>
-        </ProtectedRoute>
-    );
-} 
+  return (
+    <ProtectedRoute requiredRole="medico">
+      <MedicoLayout title="Minhas Consultas">
+        <ConsultationsPage />
+      </MedicoLayout>
+    </ProtectedRoute>
+  );
+}
