@@ -28,10 +28,10 @@ export const validateUserData = (req: Request, res: Response, next: NextFunction
     return;
   }
 
-  if (role && !['admin', 'medico', 'paciente'].includes(role)) {
+  if (role && !['medico', 'paciente'].includes(role)) {
     res.status(400).json({
       success: false,
-      message: 'Role deve ser "admin", "medico" ou "paciente"'
+      message: 'Role deve ser "medico" ou "paciente"'
     });
     return;
   }

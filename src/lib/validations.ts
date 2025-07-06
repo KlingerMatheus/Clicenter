@@ -28,7 +28,7 @@ export const createUserSchema = z.object({
     .email('Email inválido')
     .toLowerCase()
     .trim(),
-  role: z.enum(['admin', 'medico', 'paciente'], {
+  role: z.enum(['medico', 'paciente'], {
     errorMap: () => ({ message: 'Tipo de usuário inválido' }),
   }),
   password: z
@@ -53,7 +53,7 @@ export const editUserSchema = z.object({
     .email('Email inválido')
     .toLowerCase()
     .trim(),
-  role: z.enum(['admin', 'medico', 'paciente'], {
+  role: z.enum(['medico', 'paciente'], {
     errorMap: () => ({ message: 'Tipo de usuário inválido' }),
   }),
   password: z
@@ -124,7 +124,7 @@ export type PaginationParams = z.infer<typeof paginationSchema>;
 
 // Schema para filtros de usuário
 export const userFiltersSchema = z.object({
-  role: z.enum(['admin', 'medico', 'paciente']).optional(),
+  role: z.enum(['medico', 'paciente']).optional(),
   isActive: z.boolean().optional(),
   search: z.string().optional(),
 });

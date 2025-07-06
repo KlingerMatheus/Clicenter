@@ -123,6 +123,12 @@ const UserManagement: React.FC = () => {
 
     const handleOpenDialog = (user?: User) => {
         if (user) {
+            // Verificar se o usuário é admin
+            if (user.role === 'admin') {
+                showSnackbar('Não é permitido editar usuários administradores', 'error');
+                return;
+            }
+
             setEditingUser(user);
             setData({
                 name: user.name,
@@ -199,6 +205,13 @@ const UserManagement: React.FC = () => {
     };
 
     const handleDelete = async (userId: string) => {
+        // Verificar se o usuário é admin
+        const user = users.find(u => u._id === userId);
+        if (user && user.role === 'admin') {
+            showSnackbar('Não é permitido excluir usuários administradores', 'error');
+            return;
+        }
+
         if (!window.confirm('Tem certeza que deseja excluir este usuário?')) {
             return;
         }
@@ -226,6 +239,13 @@ const UserManagement: React.FC = () => {
     };
 
     const handleToggleStatus = async (userId: string) => {
+        // Verificar se o usuário é admin
+        const user = users.find(u => u._id === userId);
+        if (user && user.role === 'admin') {
+            showSnackbar('Não é permitido alterar o status de usuários administradores', 'error');
+            return;
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}/users/${userId}/toggle-status`, {
                 method: 'PATCH',
@@ -490,7 +510,10 @@ const UserManagement: React.FC = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mb: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 600 }}>
+                    <strong>Nota de Segurança:</strong> Usuários administradores não são exibidos nesta lista e não podem ser criados, editados ou excluídos através desta interface por questões de segurança.
+                </Typography>
 
                 <Button
                     variant="contained"
@@ -557,7 +580,6 @@ const UserManagement: React.FC = () => {
                                 onChange={(e) => setField('role', e.target.value)}
                                 label="Tipo de Usuário"
                             >
-                                <MenuItem value="admin">Admin</MenuItem>
                                 <MenuItem value="medico">Médico</MenuItem>
                                 <MenuItem value="paciente">Paciente</MenuItem>
                             </Select>
@@ -566,6 +588,9 @@ const UserManagement: React.FC = () => {
                                     {errors.role}
                                 </Typography>
                             )}
+                            <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, ml: 1.5 }}>
+                                Nota: Usuários administradores não podem ser criados através desta interface
+                            </Typography>
                         </FormControl>
                         <TextField
                             fullWidth
