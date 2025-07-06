@@ -341,10 +341,6 @@ const ScheduleConsultationPage: React.FC = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
-                Agendar Consulta
-            </Typography>
-
             <Grid container spacing={3}>
                 {/* Seleção de Especialidade */}
                 <Grid item xs={12}>
