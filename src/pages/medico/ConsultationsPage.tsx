@@ -52,12 +52,15 @@ interface Consultation {
     patientId: string;
     patientName: string;
     patientEmail: string;
+    patientPhone: string;
     date: string;
     time: string;
-    status: 'scheduled' | 'completed' | 'cancelled';
+    status: 'scheduled' | 'completed' | 'cancelled' | 'confirmed';
     notes?: string;
     diagnosis?: string;
     prescription?: string;
+    symptoms?: string;
+    createdAt: string;
 }
 
 const ConsultationsPage: React.FC = () => {
@@ -74,7 +77,8 @@ const ConsultationsPage: React.FC = () => {
         time: '',
         notes: '',
         diagnosis: '',
-        prescription: ''
+        prescription: '',
+        symptoms: ''
     });
     const [snackbar, setSnackbar] = useState({
         open: false,
@@ -83,27 +87,89 @@ const ConsultationsPage: React.FC = () => {
     });
 
     useEffect(() => {
-        fetchConsultations();
-    }, [token]);
-
-    const fetchConsultations = async () => {
-        try {
-            const response = await fetch('http://localhost:3001/api/consultations/medico', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+        // Mock data - simular carregamento
+        setTimeout(() => {
+            const mockConsultations: Consultation[] = [
+                {
+                    _id: '1',
+                    patientId: 'p1',
+                    patientName: 'Maria Silva',
+                    patientEmail: 'maria@email.com',
+                    patientPhone: '(11) 99999-1111',
+                    date: '2024-01-15',
+                    time: '09:00',
+                    status: 'completed',
+                    notes: 'Paciente relatou dor de cabeça persistente há 3 dias.',
+                    diagnosis: 'Cefaleia tensional',
+                    prescription: 'Paracetamol 500mg - 1 comprimido a cada 6 horas por 3 dias',
+                    symptoms: 'Dor de cabeça, tensão muscular',
+                    createdAt: '2024-01-10T10:00:00Z'
+                },
+                {
+                    _id: '2',
+                    patientId: 'p2',
+                    patientName: 'João Santos',
+                    patientEmail: 'joao@email.com',
+                    patientPhone: '(11) 99999-2222',
+                    date: '2024-01-15',
+                    time: '14:30',
+                    status: 'scheduled',
+                    symptoms: 'Dor abdominal, náuseas',
+                    createdAt: '2024-01-12T14:00:00Z'
+                },
+                {
+                    _id: '3',
+                    patientId: 'p3',
+                    patientName: 'Ana Costa',
+                    patientEmail: 'ana@email.com',
+                    patientPhone: '(11) 99999-3333',
+                    date: '2024-01-16',
+                    time: '10:00',
+                    status: 'confirmed',
+                    symptoms: 'Febre, tosse seca',
+                    createdAt: '2024-01-13T09:30:00Z'
+                },
+                {
+                    _id: '4',
+                    patientId: 'p4',
+                    patientName: 'Pedro Oliveira',
+                    patientEmail: 'pedro@email.com',
+                    patientPhone: '(11) 99999-4444',
+                    date: '2024-01-17',
+                    time: '16:00',
+                    status: 'scheduled',
+                    symptoms: 'Dor nas costas, dificuldade para dormir',
+                    createdAt: '2024-01-14T11:15:00Z'
+                },
+                {
+                    _id: '5',
+                    patientId: 'p5',
+                    patientName: 'Lucia Ferreira',
+                    patientEmail: 'lucia@email.com',
+                    patientPhone: '(11) 99999-5555',
+                    date: '2024-01-14',
+                    time: '11:00',
+                    status: 'cancelled',
+                    notes: 'Paciente cancelou por motivos pessoais',
+                    createdAt: '2024-01-11T16:45:00Z'
+                },
+                {
+                    _id: '6',
+                    patientId: 'p6',
+                    patientName: 'Carlos Mendes',
+                    patientEmail: 'carlos@email.com',
+                    patientPhone: '(11) 99999-6666',
+                    date: '2024-01-18',
+                    time: '08:30',
+                    status: 'scheduled',
+                    symptoms: 'Dor no peito, falta de ar',
+                    createdAt: '2024-01-15T13:20:00Z'
                 }
-            });
-            const data = await response.json();
-
-            if (data.success) {
-                setConsultations(data.data);
-            }
-        } catch (error) {
-            console.error('Erro ao buscar consultas:', error);
-        } finally {
+            ];
+            setConsultations(mockConsultations);
             setLoading(false);
-        }
-    };
+        }, 1000);
+    }, []);
 
     const handleOpenDialog = (consultation: Consultation, type: 'reschedule' | 'report' | 'prescription') => {
         setSelectedConsultation(consultation);
@@ -113,7 +179,8 @@ const ConsultationsPage: React.FC = () => {
             time: consultation.time,
             notes: consultation.notes || '',
             diagnosis: consultation.diagnosis || '',
-            prescription: consultation.prescription || ''
+            prescription: consultation.prescription || '',
+            symptoms: consultation.symptoms || ''
         });
         setOpenDialog(true);
     };
@@ -121,53 +188,37 @@ const ConsultationsPage: React.FC = () => {
     const handleCloseDialog = () => {
         setOpenDialog(false);
         setSelectedConsultation(null);
-        setFormData({ date: '', time: '', notes: '', diagnosis: '', prescription: '' });
+        setFormData({ date: '', time: '', notes: '', diagnosis: '', prescription: '', symptoms: '' });
     };
 
     const handleSubmit = async () => {
         if (!selectedConsultation) return;
 
         try {
-            let endpoint = '';
-            let payload = {};
+            // Simular processamento
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-            switch (dialogType) {
-                case 'reschedule':
-                    endpoint = `http://localhost:3001/api/consultations/${selectedConsultation._id}/reschedule`;
-                    payload = { date: formData.date, time: formData.time };
-                    break;
-                case 'report':
-                    endpoint = `http://localhost:3001/api/consultations/${selectedConsultation._id}/report`;
-                    payload = { notes: formData.notes, diagnosis: formData.diagnosis };
-                    break;
-                case 'prescription':
-                    endpoint = `http://localhost:3001/api/consultations/${selectedConsultation._id}/prescription`;
-                    payload = { prescription: formData.prescription };
-                    break;
-            }
-
-            const response = await fetch(endpoint, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(payload)
+            // Atualizar dados mock
+            const updatedConsultations = consultations.map(consultation => {
+                if (consultation._id === selectedConsultation._id) {
+                    return {
+                        ...consultation,
+                        ...formData
+                    };
+                }
+                return consultation;
             });
 
-            const data = await response.json();
+            setConsultations(updatedConsultations);
 
-            if (data.success) {
-                setSnackbar({
-                    open: true,
-                    message: dialogType === 'reschedule' ? 'Consulta reagendada com sucesso!' :
-                        dialogType === 'report' ? 'Relatório gerado com sucesso!' :
-                            'Receita gerada com sucesso!',
-                    severity: 'success'
-                });
-                fetchConsultations();
-                handleCloseDialog();
-            }
+            setSnackbar({
+                open: true,
+                message: dialogType === 'reschedule' ? 'Consulta reagendada com sucesso!' :
+                    dialogType === 'report' ? 'Relatório gerado com sucesso!' :
+                        'Receita gerada com sucesso!',
+                severity: 'success'
+            });
+            handleCloseDialog();
         } catch (error) {
             setSnackbar({
                 open: true,
@@ -182,6 +233,7 @@ const ConsultationsPage: React.FC = () => {
             case 'scheduled': return 'primary';
             case 'completed': return 'success';
             case 'cancelled': return 'error';
+            case 'confirmed': return 'warning';
             default: return 'default';
         }
     };
@@ -191,8 +243,18 @@ const ConsultationsPage: React.FC = () => {
             case 'scheduled': return 'Agendada';
             case 'completed': return 'Concluída';
             case 'cancelled': return 'Cancelada';
+            case 'confirmed': return 'Confirmada';
             default: return status;
         }
+    };
+
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('pt-BR');
+    };
+
+    const formatDateTime = (dateString: string, timeString: string) => {
+        const date = new Date(dateString);
+        return `${date.toLocaleDateString('pt-BR')} às ${timeString}`;
     };
 
     const renderMobileCard = (consultation: Consultation) => (
@@ -210,6 +272,9 @@ const ConsultationsPage: React.FC = () => {
                         <Typography variant="body2" color="text.secondary">
                             {consultation.patientEmail}
                         </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {consultation.patientPhone}
+                        </Typography>
                     </Box>
                     <Chip
                         label={getStatusLabel(consultation.status)}
@@ -221,13 +286,19 @@ const ConsultationsPage: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                     <ScheduleIcon fontSize="small" color="action" />
                     <Typography variant="body2">
-                        {new Date(consultation.date).toLocaleDateString('pt-BR')} às {consultation.time}
+                        {formatDateTime(consultation.date, consultation.time)}
                     </Typography>
                 </Box>
 
+                {consultation.symptoms && (
+                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                        <strong>Sintomas:</strong> {consultation.symptoms}
+                    </Typography>
+                )}
+
                 {consultation.notes && (
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                        {consultation.notes}
+                        <strong>Observações:</strong> {consultation.notes}
                     </Typography>
                 )}
             </CardContent>
@@ -238,7 +309,7 @@ const ConsultationsPage: React.FC = () => {
                         size="small"
                         startIcon={<EditIcon />}
                         onClick={() => handleOpenDialog(consultation, 'reschedule')}
-                        disabled={consultation.status === 'completed'}
+                        disabled={consultation.status === 'completed' || consultation.status === 'cancelled'}
                     >
                         Reagendar
                     </Button>
@@ -272,9 +343,9 @@ const ConsultationsPage: React.FC = () => {
                 <TableHead>
                     <TableRow sx={{ backgroundColor: theme.palette.primary.main }}>
                         <TableCell sx={{ color: 'white', fontWeight: 600 }}>Paciente</TableCell>
-                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Data</TableCell>
-                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Horário</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Data/Hora</TableCell>
                         <TableCell sx={{ color: 'white', fontWeight: 600 }}>Status</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Sintomas</TableCell>
                         <TableCell sx={{ color: 'white', fontWeight: 600 }}>Observações</TableCell>
                         <TableCell align="center" sx={{ color: 'white', fontWeight: 600 }}>Ações</TableCell>
                     </TableRow>
@@ -290,18 +361,31 @@ const ConsultationsPage: React.FC = () => {
                                     <Typography variant="caption" color="text.secondary">
                                         {consultation.patientEmail}
                                     </Typography>
+                                    <br />
+                                    <Typography variant="caption" color="text.secondary">
+                                        {consultation.patientPhone}
+                                    </Typography>
                                 </Box>
                             </TableCell>
                             <TableCell>
-                                {new Date(consultation.date).toLocaleDateString('pt-BR')}
+                                <Typography variant="body2">
+                                    {formatDate(consultation.date)}
+                                </Typography>
+                                <Typography variant="caption" color="text.secondary">
+                                    {consultation.time}
+                                </Typography>
                             </TableCell>
-                            <TableCell>{consultation.time}</TableCell>
                             <TableCell>
                                 <Chip
                                     label={getStatusLabel(consultation.status)}
                                     color={getStatusColor(consultation.status) as any}
                                     size="small"
                                 />
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body2" sx={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    {consultation.symptoms || '-'}
+                                </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="body2" sx={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -313,7 +397,7 @@ const ConsultationsPage: React.FC = () => {
                                     <IconButton
                                         size="small"
                                         onClick={() => handleOpenDialog(consultation, 'reschedule')}
-                                        disabled={consultation.status === 'completed'}
+                                        disabled={consultation.status === 'completed' || consultation.status === 'cancelled'}
                                         title="Reagendar"
                                     >
                                         <EditIcon />
@@ -386,7 +470,7 @@ const ConsultationsPage: React.FC = () => {
                 <DialogContent>
                     <Box sx={{ pt: 2 }}>
                         {selectedConsultation && (
-                            <Paper sx={{ p: 2, mb: 3, bgcolor: 'grey.50' }}>
+                            <Paper sx={{ p: 2, mb: 3, bgcolor: theme.palette.mode === 'dark' ? 'grey.800' : 'grey.50' }}>
                                 <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
                                     Informações do Paciente
                                 </Typography>
@@ -403,7 +487,12 @@ const ConsultationsPage: React.FC = () => {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Typography variant="body2">
-                                            <strong>Data:</strong> {new Date(selectedConsultation.date).toLocaleDateString('pt-BR')}
+                                            <strong>Telefone:</strong> {selectedConsultation.patientPhone}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography variant="body2">
+                                            <strong>Data:</strong> {formatDate(selectedConsultation.date)}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -411,6 +500,13 @@ const ConsultationsPage: React.FC = () => {
                                             <strong>Horário:</strong> {selectedConsultation.time}
                                         </Typography>
                                     </Grid>
+                                    {selectedConsultation.symptoms && (
+                                        <Grid item xs={12}>
+                                            <Typography variant="body2">
+                                                <strong>Sintomas:</strong> {selectedConsultation.symptoms}
+                                            </Typography>
+                                        </Grid>
+                                    )}
                                 </Grid>
                             </Paper>
                         )}
