@@ -6,6 +6,8 @@ import {
   Dashboard as DashboardIcon,
   People as PeopleIcon,
   Settings as SettingsIcon,
+  Event as EventIcon,
+  MedicalServices as MedicalIcon,
 } from '@mui/icons-material';
 import { MenuItem, UserInfo } from './SidebarContent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -91,6 +93,18 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
           onClick: () => router.push('/admin/users')
         },
         {
+          text: 'Consultas',
+          icon: <EventIcon />,
+          path: '/admin/consultations',
+          onClick: () => router.push('/admin/consultations')
+        },
+        {
+          text: 'Históricos',
+          icon: <MedicalIcon />,
+          path: '/admin/medical-records',
+          onClick: () => router.push('/admin/medical-records')
+        },
+        {
           text: 'Configurações',
           icon: <SettingsIcon />,
           path: '/admin/settings',
@@ -99,7 +113,67 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       ];
     }
 
-    // Para outros tipos de usuário (será implementado posteriormente)
+    // Menu para médicos
+    if (userRole === 'medico') {
+      return [
+        {
+          text: 'Dashboard',
+          icon: <DashboardIcon />,
+          path: '/medico/dashboard',
+          onClick: () => router.push('/medico/dashboard')
+        },
+        {
+          text: 'Minhas Consultas',
+          icon: <EventIcon />,
+          path: '/medico/consultations',
+          onClick: () => router.push('/medico/consultations')
+        },
+        {
+          text: 'Meus Pacientes',
+          icon: <PeopleIcon />,
+          path: '/medico/patients',
+          onClick: () => router.push('/medico/patients')
+        },
+        {
+          text: 'Configurações',
+          icon: <SettingsIcon />,
+          path: '/medico/settings',
+          onClick: () => router.push('/medico/settings')
+        },
+      ];
+    }
+
+    // Menu para pacientes
+    if (userRole === 'paciente') {
+      return [
+        {
+          text: 'Dashboard',
+          icon: <DashboardIcon />,
+          path: '/paciente/dashboard',
+          onClick: () => router.push('/paciente/dashboard')
+        },
+        {
+          text: 'Minhas Consultas',
+          icon: <EventIcon />,
+          path: '/paciente/consultations',
+          onClick: () => router.push('/paciente/consultations')
+        },
+        {
+          text: 'Meu Histórico',
+          icon: <MedicalIcon />,
+          path: '/paciente/medical-record',
+          onClick: () => router.push('/paciente/medical-record')
+        },
+        {
+          text: 'Configurações',
+          icon: <SettingsIcon />,
+          path: '/paciente/settings',
+          onClick: () => router.push('/paciente/settings')
+        },
+      ];
+    }
+
+    // Fallback para outros tipos de usuário
     return [
       {
         text: 'Dashboard',
