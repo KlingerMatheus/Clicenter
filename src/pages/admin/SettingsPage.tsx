@@ -180,10 +180,6 @@ const SettingsPage: React.FC = () => {
 
     return (
         <Box sx={{ p: { xs: 2, md: 3 } }}>
-            <Typography variant="h4" sx={{ mb: 3, fontWeight: 600 }}>
-                Configurações
-            </Typography>
-
             <Stack spacing={3}>
                 {/* Informações do Usuário */}
                 <Card>
