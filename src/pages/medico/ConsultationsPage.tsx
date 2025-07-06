@@ -349,12 +349,6 @@ const ConsultationsPage: React.FC = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                    Minhas Consultas
-                </Typography>
-            </Box>
-
             {consultations.length === 0 ? (
                 <Paper sx={{
                     p: 4,
