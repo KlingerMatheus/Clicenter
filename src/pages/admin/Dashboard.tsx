@@ -49,7 +49,12 @@ const Dashboard: React.FC = () => {
         <Box sx={{ p: 3 }}>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={4}>
-                    <Paper sx={{ p: 3, textAlign: 'center' }}>
+                    <Paper sx={{
+                        p: 3,
+                        textAlign: 'center',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                        borderRadius: 2
+                    }}>
                         <People sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
                         <Typography variant="h6">Total de Usuários</Typography>
                         <Typography variant="h4" color="primary">
@@ -59,7 +64,12 @@ const Dashboard: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Paper sx={{ p: 3, textAlign: 'center' }}>
+                    <Paper sx={{
+                        p: 3,
+                        textAlign: 'center',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                        borderRadius: 2
+                    }}>
                         <PersonAdd sx={{ fontSize: 48, color: 'success.main', mb: 2 }} />
                         <Typography variant="h6">Usuários Ativos</Typography>
                         <Typography variant="h4" color="success.main">
@@ -69,7 +79,12 @@ const Dashboard: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Paper sx={{ p: 3, textAlign: 'center' }}>
+                    <Paper sx={{
+                        p: 3,
+                        textAlign: 'center',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                        borderRadius: 2
+                    }}>
                         <PersonOff sx={{ fontSize: 48, color: 'error.main', mb: 2 }} />
                         <Typography variant="h6">Usuários Inativos</Typography>
                         <Typography variant="h4" color="error.main">
@@ -79,7 +94,12 @@ const Dashboard: React.FC = () => {
                 </Grid>
             </Grid>
 
-            <Paper sx={{ p: 3, mt: 3 }}>
+            <Paper sx={{
+                p: 3,
+                mt: 3,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                borderRadius: 2
+            }}>
                 <Typography variant="h6" gutterBottom>
                     Bem-vindo ao Painel Administrativo
                 </Typography>

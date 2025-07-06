@@ -24,7 +24,14 @@ const AdminLayoutContent: React.FC<{ children: React.ReactNode; title: string }>
             <Sidebar onThemeToggle={toggleTheme} onLogout={logout} />
             <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <TopBar title={title} onSidebarToggle={toggleMobile} />
-                <Box component="main" sx={{ flexGrow: 1, overflow: 'auto' }}>
+                <Box
+                    component="main"
+                    sx={{
+                        flexGrow: 1,
+                        overflow: 'auto',
+                        backgroundColor: (theme) => theme.palette.mode === 'light' ? '#f8f9fa' : theme.palette.background.default
+                    }}
+                >
                     {children}
                 </Box>
             </Box>

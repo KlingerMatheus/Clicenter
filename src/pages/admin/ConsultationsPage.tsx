@@ -265,14 +265,24 @@ const ConsultationsPage: React.FC = () => {
                 </Typography>
             </Box>
 
-            <Paper sx={{ p: 2, mb: 3 }}>
+            <Paper sx={{
+                p: 2,
+                mb: 3,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                borderRadius: 2
+            }}>
                 <Typography variant="body2" color="text.secondary">
                     Visualize todas as consultas do sistema, incluindo agendamentos, consultas realizadas e cancelamentos.
                 </Typography>
             </Paper>
 
             {consultations.length === 0 ? (
-                <Paper sx={{ p: 4, textAlign: 'center' }}>
+                <Paper sx={{
+                    p: 4,
+                    textAlign: 'center',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                    borderRadius: 2
+                }}>
                     <EventIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
                     <Typography variant="h6" color="text.secondary" gutterBottom>
                         Nenhuma consulta encontrada

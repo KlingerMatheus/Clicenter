@@ -195,7 +195,11 @@ const SettingsPage: React.FC = () => {
                 </Card>
 
                 {/* Formulário de Edição */}
-                <Paper sx={{ p: { xs: 2, md: 3 } }}>
+                <Paper sx={{
+                    p: { xs: 2, md: 3 },
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+                    borderRadius: 2
+                }}>
                     <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
                         Editar Informações
                     </Typography>

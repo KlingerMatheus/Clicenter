@@ -345,7 +345,12 @@ const UserManagement: React.FC = () => {
     };
 
     const renderEmptyState = () => (
-        <Paper sx={{ p: 4, textAlign: 'center' }}>
+        <Paper sx={{
+            p: 4,
+            textAlign: 'center',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+            borderRadius: 2
+        }}>
             <PersonIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
             <Typography variant="h6" color="text.secondary" gutterBottom>
                 Nenhum usuário encontrado
@@ -364,7 +369,11 @@ const UserManagement: React.FC = () => {
     );
 
     const renderMobileCard = (user: User) => (
-        <Card key={user._id} sx={{ mb: 2 }}>
+        <Card key={user._id} sx={{
+            mb: 2,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+            borderRadius: 2
+        }}>
             <CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                     <Box>
@@ -432,7 +441,10 @@ const UserManagement: React.FC = () => {
     );
 
     const renderDesktopTable = () => (
-        <TableContainer component={Paper} sx={{ boxShadow: 2 }}>
+        <TableContainer component={Paper} sx={{
+            boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+            borderRadius: 2
+        }}>
             <Table>
                 <TableHead>
                     <TableRow sx={{ backgroundColor: theme.palette.primary.main }}>

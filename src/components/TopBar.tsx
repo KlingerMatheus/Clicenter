@@ -29,7 +29,13 @@ const TopBar: React.FC<TopBarProps> = ({ title, onSidebarToggle }) => {
                 zIndex: theme.zIndex.appBar,
             }}
         >
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            <Typography
+                variant="h6"
+                sx={{
+                    fontWeight: 600,
+                    color: theme.palette.mode === 'light' ? '#000000' : theme.palette.text.primary
+                }}
+            >
                 {title}
             </Typography>
 

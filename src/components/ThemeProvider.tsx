@@ -56,6 +56,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       secondary: {
         main: '#dc004e',
       },
+      background: {
+        default: mode === 'light' ? '#f5f5f5' : '#121212',
+        paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
+      },
+      text: {
+        primary: mode === 'light' ? '#000000' : '#ffffff',
+        secondary: mode === 'light' ? '#666666' : '#b0b0b0',
+      },
     },
   });
 

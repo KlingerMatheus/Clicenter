@@ -15,7 +15,7 @@ const SidebarToggleButton: React.FC<SidebarToggleButtonProps> = ({ onClick }) =>
         <IconButton
             onClick={onClick}
             sx={{
-                color: theme.palette.text.primary,
+                color: theme.palette.mode === 'light' ? '#000000' : theme.palette.text.primary,
                 '&:hover': {
                     backgroundColor: theme.palette.action.hover,
                 },
