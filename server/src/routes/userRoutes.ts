@@ -14,19 +14,19 @@ router.put(
   adminAuth,
   validateUserId,
   validateUserData,
-  UserController.updateUser
+  UserController.updateUser,
 );
 router.delete(
   '/users/:id',
   adminAuth,
   validateUserId,
-  UserController.deleteUser
+  UserController.deleteUser,
 );
 router.patch(
   '/users/:id/toggle-status',
   adminAuth,
   validateUserId,
-  UserController.toggleUserStatus
+  UserController.toggleUserStatus,
 );
 
 export default router;

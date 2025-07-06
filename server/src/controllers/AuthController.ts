@@ -47,7 +47,7 @@ export class AuthController {
       const token = jwt.sign(
         { userId: user._id, role: user.role },
         process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
+        { expiresIn: '24h' },
       );
 
       const userResponse = {
@@ -68,7 +68,7 @@ export class AuthController {
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Erro interno do servidor',
+        message: `Erro interno do servidor ${error}`,
       });
     }
   }
@@ -85,7 +85,7 @@ export class AuthController {
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Erro interno do servidor',
+        message: `Erro interno do servidor ${error}`,
       });
     }
   }
@@ -133,7 +133,7 @@ export class AuthController {
         const currentUser = await User.findById(user._id).select('+password');
         const isCurrentPasswordValid = await bcrypt.compare(
           currentPassword,
-          currentUser!.password
+          currentUser!.password,
         );
 
         if (!isCurrentPasswordValid) {
@@ -170,7 +170,9 @@ export class AuthController {
       res.status(500).json({
         success: false,
         message:
-          error instanceof Error ? error.message : 'Erro interno do servidor',
+          error instanceof Error
+            ? error.message
+            : `Erro interno do servidor ${error}`,
       });
     }
   }

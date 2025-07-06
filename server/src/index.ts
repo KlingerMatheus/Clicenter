@@ -26,7 +26,7 @@ app.use(
         ? ['https://seu-dominio.com']
         : ['http://localhost:3000'],
     credentials: true,
-  })
+  }),
 );
 
 // Rate limiting
@@ -63,14 +63,13 @@ app.use(
     err: any,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
   ) => {
     console.error(err.stack);
     res.status(500).json({
       success: false,
       message: 'Erro interno do servidor',
     });
-  }
+  },
 );
 
 // Middleware para rotas não encontradas
