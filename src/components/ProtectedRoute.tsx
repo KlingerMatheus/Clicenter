@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import ContentLoading from './ContentLoading';
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -21,23 +22,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
     }, [user, isLoading, router]);
 
     if (isLoading) {
-        return (
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    gap: 2
-                }}
-            >
-                <CircularProgress size={40} />
-                <Typography variant="body2" color="text.secondary">
-                    Carregando...
-                </Typography>
-            </Box>
-        );
+        return <ContentLoading />;
     }
 
     if (!user) {

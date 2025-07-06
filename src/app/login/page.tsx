@@ -38,6 +38,7 @@ import { useRouter } from 'next/navigation';
 import ClientOnly from '../../components/ClientOnly';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { loginSchema, LoginFormData } from '../../lib/validations';
+import LoadingButton from '../../components/LoadingButton';
 
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -384,11 +385,11 @@ export default function LoginPage() {
                             </Alert>
                         )}
 
-                        <Button
+                        <LoadingButton
                             type="submit"
                             fullWidth
                             variant="contained"
-                            disabled={isLoading}
+                            loading={isLoading}
                             sx={{
                                 py: 2,
                                 borderRadius: 2,
@@ -406,12 +407,8 @@ export default function LoginPage() {
                                 }
                             }}
                         >
-                            {isLoading ? (
-                                <CircularProgress size={24} color="inherit" />
-                            ) : (
-                                'Acessar'
-                            )}
-                        </Button>
+                            Acessar
+                        </LoadingButton>
                     </form>
 
                     <Box sx={{

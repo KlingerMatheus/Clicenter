@@ -32,6 +32,8 @@ import {
     Cancel as CancelIcon,
     Security as SecurityIcon,
 } from '@mui/icons-material';
+import ContentLoading from '../../components/ContentLoading';
+import LoadingButton from '../../components/LoadingButton';
 
 const SettingsPage: React.FC = () => {
     const theme = useTheme();
@@ -173,11 +175,7 @@ const SettingsPage: React.FC = () => {
     };
 
     if (!user) {
-        return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-                <CircularProgress />
-            </Box>
-        );
+        return <ContentLoading />;
     }
 
     return (
@@ -338,15 +336,15 @@ const SettingsPage: React.FC = () => {
 
                             {/* Botões */}
                             <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
-                                <Button
+                                <LoadingButton
                                     type="submit"
                                     variant="contained"
-                                    startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
-                                    disabled={loading}
+                                    loading={loading}
+                                    startIcon={<SaveIcon />}
                                     sx={{ flex: { xs: 1, sm: 'none' } }}
                                 >
-                                    {loading ? 'Salvando...' : 'Salvar Alterações'}
-                                </Button>
+                                    Salvar Alterações
+                                </LoadingButton>
                                 <Button
                                     variant="outlined"
                                     startIcon={<CancelIcon />}

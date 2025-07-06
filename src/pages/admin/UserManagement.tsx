@@ -46,6 +46,8 @@ import {
     Email as EmailIcon,
     CalendarToday as CalendarIcon
 } from '@mui/icons-material';
+import ContentLoading from '../../components/ContentLoading';
+import LoadingButton from '../../components/LoadingButton';
 
 interface User {
     _id: string;
@@ -64,6 +66,7 @@ const UserManagement: React.FC = () => {
 
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<User | null>(null);
 
@@ -165,6 +168,8 @@ const UserManagement: React.FC = () => {
             return;
         }
 
+        setSubmitting(true);
+
         try {
             const url = editingUser
                 ? `${API_BASE_URL}/users/${editingUser._id}`
@@ -201,6 +206,8 @@ const UserManagement: React.FC = () => {
         } catch (error) {
             console.error('Erro na operação:', error);
             showSnackbar('Erro na operação', 'error');
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -498,14 +505,7 @@ const UserManagement: React.FC = () => {
     );
 
     if (loading) {
-        return (
-            <Box sx={{ p: 3 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mb: 3 }}>
-                    <Skeleton variant="rectangular" width={140} height={40} />
-                </Box>
-                {renderLoadingSkeleton()}
-            </Box>
-        );
+        return <ContentLoading />;
     }
 
     return (
@@ -606,12 +606,16 @@ const UserManagement: React.FC = () => {
                     </Box>
                 </DialogContent>
                 <DialogActions sx={{ p: 3, pt: 1 }}>
-                    <Button onClick={handleCloseDialog} variant="outlined">
+                    <Button onClick={handleCloseDialog} variant="outlined" disabled={submitting}>
                         Cancelar
                     </Button>
-                    <Button onClick={handleSubmit} variant="contained">
+                    <LoadingButton
+                        onClick={handleSubmit}
+                        variant="contained"
+                        loading={submitting}
+                    >
                         {editingUser ? 'Atualizar' : 'Criar'}
-                    </Button>
+                    </LoadingButton>
                 </DialogActions>
             </Dialog>
 

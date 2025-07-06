@@ -1,8 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Grid } from '@mui/material';
 import { People, PersonAdd, PersonOff } from '@mui/icons-material';
+import { useAuth } from '../../contexts/AuthContext';
+import ContentLoading from '../../components/ContentLoading';
 
 const Dashboard: React.FC = () => {
+    const { token } = useAuth();
+    const [stats, setStats] = useState({
+        total: 0,
+        active: 0,
+        inactive: 0
+    });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/api/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    const users = data.data;
+                    const total = users.length;
+                    const active = users.filter((user: any) => user.isActive).length;
+                    const inactive = total - active;
+
+                    setStats({ total, active, inactive });
+                }
+            } catch (error) {
+                console.error('Erro ao buscar estatísticas:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStats();
+    }, [token]);
+
+    if (loading) {
+        return <ContentLoading />;
+    }
+
     return (
         <Box sx={{ p: 3 }}>
             <Grid container spacing={3}>
@@ -11,7 +53,7 @@ const Dashboard: React.FC = () => {
                         <People sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
                         <Typography variant="h6">Total de Usuários</Typography>
                         <Typography variant="h4" color="primary">
-                            0
+                            {stats.total}
                         </Typography>
                     </Paper>
                 </Grid>
@@ -21,7 +63,7 @@ const Dashboard: React.FC = () => {
                         <PersonAdd sx={{ fontSize: 48, color: 'success.main', mb: 2 }} />
                         <Typography variant="h6">Usuários Ativos</Typography>
                         <Typography variant="h4" color="success.main">
-                            0
+                            {stats.active}
                         </Typography>
                     </Paper>
                 </Grid>
@@ -31,7 +73,7 @@ const Dashboard: React.FC = () => {
                         <PersonOff sx={{ fontSize: 48, color: 'error.main', mb: 2 }} />
                         <Typography variant="h6">Usuários Inativos</Typography>
                         <Typography variant="h4" color="error.main">
-                            0
+                            {stats.inactive}
                         </Typography>
                     </Paper>
                 </Grid>
