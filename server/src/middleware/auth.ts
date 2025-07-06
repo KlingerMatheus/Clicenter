@@ -9,7 +9,7 @@ interface AuthRequest extends Request {
 export const auth = async (
   req: AuthRequest,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -23,7 +23,7 @@ export const auth = async (
 
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'your-secret-key',
+      process.env.JWT_SECRET || 'your-secret-key'
     ) as any;
     const user = await User.findById(decoded.userId).select('-password');
 
@@ -54,7 +54,7 @@ export const auth = async (
 export const adminAuth = async (
   req: AuthRequest,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     await auth(req, res, () => {});

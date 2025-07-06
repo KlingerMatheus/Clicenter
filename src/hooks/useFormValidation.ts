@@ -19,7 +19,7 @@ interface UseFormValidationReturn<T> {
 
 export function useFormValidation<T extends Record<string, any>>(
   schema: ZodSchema<T>,
-  initialData: T,
+  initialData: T
 ): UseFormValidationReturn<T> {
   const [data, setData] = useState<T>(initialData);
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -59,7 +59,7 @@ export function useFormValidation<T extends Record<string, any>>(
       } catch (error) {
         if (error instanceof z.ZodError) {
           const fieldError = error.errors.find(
-            (err) => err.path.length === 1 && err.path[0] === field,
+            (err) => err.path.length === 1 && err.path[0] === field
           );
 
           if (fieldError) {
@@ -72,7 +72,7 @@ export function useFormValidation<T extends Record<string, any>>(
         return false;
       }
     },
-    [data, schema],
+    [data, schema]
   );
 
   const setField = useCallback(
@@ -87,7 +87,7 @@ export function useFormValidation<T extends Record<string, any>>(
         setTimeout(() => validateField(field), 0);
       }
     },
-    [errors, validateField],
+    [errors, validateField]
   );
 
   const clearErrors = useCallback(() => {

@@ -38,7 +38,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     } else {
       // Fallback para preferência do sistema
       const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)',
+        '(prefers-color-scheme: dark)'
       ).matches;
       setMode(prefersDark ? 'dark' : 'light');
     }

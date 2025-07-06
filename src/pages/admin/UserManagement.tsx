@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import {
-  createUserSchema,
-  CreateUserFormData,
-} from '../../lib/validations';
+import { createUserSchema, CreateUserFormData } from '../../lib/validations';
 import {
   Box,
   Typography,
@@ -131,7 +128,7 @@ const UserManagement: React.FC = () => {
       if (user.role === 'admin') {
         showSnackbar(
           'Não é permitido editar usuários administradores',
-          'error',
+          'error'
         );
         return;
       }
@@ -202,7 +199,7 @@ const UserManagement: React.FC = () => {
           editingUser
             ? 'Usuário atualizado com sucesso!'
             : 'Usuário criado com sucesso!',
-          'success',
+          'success'
         );
         handleCloseDialog();
         fetchUsers();
@@ -257,7 +254,7 @@ const UserManagement: React.FC = () => {
     if (user && user.role === 'admin') {
       showSnackbar(
         'Não é permitido alterar o status de usuários administradores',
-        'error',
+        'error'
       );
       return;
     }
@@ -270,7 +267,7 @@ const UserManagement: React.FC = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
 
       const data = await response.json();

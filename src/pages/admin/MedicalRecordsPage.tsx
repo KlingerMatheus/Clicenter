@@ -60,7 +60,7 @@ const MedicalRecordsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedRecord, setSelectedRecord] = useState<MedicalRecord | null>(
-    null,
+    null
   );
   const [dialogOpen, setDialogOpen] = useState(false);
 

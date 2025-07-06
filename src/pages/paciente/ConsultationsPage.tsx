@@ -324,16 +324,16 @@ const ConsultationsPage: React.FC = () => {
         </Button>
         {(consultation.status === 'scheduled' ||
           consultation.status === 'confirmed') && (
-            <Button
-              size="small"
-              startIcon={<CancelIcon />}
-              onClick={() => handleCancelConsultation(consultation._id)}
-              color="error"
-              variant="outlined"
-            >
-              Cancelar
-            </Button>
-          )}
+          <Button
+            size="small"
+            startIcon={<CancelIcon />}
+            onClick={() => handleCancelConsultation(consultation._id)}
+            color="error"
+            variant="outlined"
+          >
+            Cancelar
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
@@ -438,15 +438,15 @@ const ConsultationsPage: React.FC = () => {
                   </IconButton>
                   {(consultation.status === 'scheduled' ||
                     consultation.status === 'confirmed') && (
-                      <IconButton
-                        size="small"
-                        onClick={() => handleCancelConsultation(consultation._id)}
-                        title="Cancelar Consulta"
-                        color="error"
-                      >
-                        <CancelIcon />
-                      </IconButton>
-                    )}
+                    <IconButton
+                      size="small"
+                      onClick={() => handleCancelConsultation(consultation._id)}
+                      title="Cancelar Consulta"
+                      color="error"
+                    >
+                      <CancelIcon />
+                    </IconButton>
+                  )}
                 </Box>
               </TableCell>
             </TableRow>

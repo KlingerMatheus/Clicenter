@@ -96,7 +96,7 @@ const PatientsPage: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogType, setDialogType] = useState<'view' | 'edit' | 'history'>(
-    'view',
+    'view'
   );
   const [activeTab, setActiveTab] = useState(0);
   const [snackbar, setSnackbar] = useState({
@@ -349,7 +349,7 @@ const PatientsPage: React.FC = () => {
 
   const handleOpenDialog = (
     patient: Patient,
-    type: 'view' | 'edit' | 'history',
+    type: 'view' | 'edit' | 'history'
   ) => {
     setSelectedPatient(patient);
     setDialogType(type);
@@ -592,7 +592,7 @@ const PatientsPage: React.FC = () => {
                 <Typography variant="caption" color="text.secondary">
                   {
                     patient.consultations.filter(
-                      (c) => c.status === 'completed',
+                      (c) => c.status === 'completed'
                     ).length
                   }{' '}
                   concluídas
@@ -904,11 +904,11 @@ const PatientsPage: React.FC = () => {
                                     </Typography>
                                     <Chip
                                       label={getStatusLabel(
-                                        consultation.status,
+                                        consultation.status
                                       )}
                                       color={
                                         getStatusColor(
-                                          consultation.status,
+                                          consultation.status
                                         ) as any
                                       }
                                       size="small"

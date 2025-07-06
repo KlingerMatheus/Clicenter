@@ -165,7 +165,7 @@ const ConsultationsPage: React.FC = () => {
 
   const handleOpenDialog = (
     consultation: Consultation,
-    type: 'reschedule' | 'report' | 'prescription',
+    type: 'reschedule' | 'report' | 'prescription'
   ) => {
     setSelectedConsultation(consultation);
     setDialogType(type);

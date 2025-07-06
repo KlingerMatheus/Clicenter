@@ -729,7 +729,7 @@ export default function LoginPage() {
                       onClick={() =>
                         handleCopyCredentials(
                           credential.email,
-                          credential.password,
+                          credential.password
                         )
                       }
                       sx={{

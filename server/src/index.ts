@@ -26,7 +26,7 @@ app.use(
         ? ['https://seu-dominio.com']
         : ['http://localhost:3000'],
     credentials: true,
-  }),
+  })
 );
 
 // Rate limiting
@@ -58,19 +58,13 @@ app.get('/health', (req, res) => {
 });
 
 // Middleware de tratamento de erros
-app.use(
-  (
-    err: any,
-    req: express.Request,
-    res: express.Response,
-  ) => {
-    console.error(err.stack);
-    res.status(500).json({
-      success: false,
-      message: 'Erro interno do servidor',
-    });
-  },
-);
+app.use((err: any, req: express.Request, res: express.Response) => {
+  console.error(err.stack);
+  res.status(500).json({
+    success: false,
+    message: 'Erro interno do servidor',
+  });
+});
 
 // Middleware para rotas não encontradas
 app.use('*', (req, res) => {

@@ -36,7 +36,7 @@ export class UserService {
 
   async updateUser(
     id: string,
-    userData: Partial<IUser>,
+    userData: Partial<IUser>
   ): Promise<IUser | null> {
     try {
       const update: Partial<IUser> = { ...userData };

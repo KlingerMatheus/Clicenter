@@ -186,10 +186,10 @@ const PatientDashboard: React.FC = () => {
   const stats = {
     totalConsultations: consultations.length,
     completedConsultations: consultations.filter(
-      (c) => c.status === 'completed',
+      (c) => c.status === 'completed'
     ).length,
     scheduledConsultations: consultations.filter(
-      (c) => c.status === 'scheduled',
+      (c) => c.status === 'scheduled'
     ).length,
     totalRecords: medicalRecords.length,
   };
@@ -322,7 +322,7 @@ const PatientDashboard: React.FC = () => {
             </Typography>
 
             {consultations.filter(
-              (c) => c.status === 'scheduled' || c.status === 'confirmed',
+              (c) => c.status === 'scheduled' || c.status === 'confirmed'
             ).length === 0 ? (
               <Typography
                 color="text.secondary"
@@ -334,7 +334,7 @@ const PatientDashboard: React.FC = () => {
               <Stack spacing={2}>
                 {consultations
                   .filter(
-                    (c) => c.status === 'scheduled' || c.status === 'confirmed',
+                    (c) => c.status === 'scheduled' || c.status === 'confirmed'
                   )
                   .slice(0, 3)
                   .map((consultation) => (

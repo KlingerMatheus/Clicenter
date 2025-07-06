@@ -47,7 +47,7 @@ export class AuthController {
       const token = jwt.sign(
         { userId: user._id, role: user.role },
         process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' },
+        { expiresIn: '24h' }
       );
 
       const userResponse = {
@@ -133,7 +133,7 @@ export class AuthController {
         const currentUser = await User.findById(user._id).select('+password');
         const isCurrentPasswordValid = await bcrypt.compare(
           currentPassword,
-          currentUser!.password,
+          currentUser!.password
         );
 
         if (!isCurrentPasswordValid) {
