@@ -16,11 +16,7 @@ import {
   Event as EventIcon,
   Person as PersonIcon,
   Schedule as ScheduleIcon,
-  CheckCircle as CheckIcon,
-  Warning as WarningIcon,
-  Info as InfoIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface ConsultationReminder {
@@ -35,7 +31,6 @@ interface ConsultationReminder {
 
 const Dashboard: React.FC = () => {
   const theme = useTheme();
-  const { token } = useAuth();
   const [loading, setLoading] = useState(true);
   const [reminders, setReminders] = useState<ConsultationReminder[]>([]);
 

@@ -3,9 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import {
   createUserSchema,
-  editUserSchema,
   CreateUserFormData,
-  EditUserFormData,
 } from '../../lib/validations';
 import {
   Box,
@@ -36,7 +34,6 @@ import {
   CardActions,
   useTheme,
   useMediaQuery,
-  Skeleton,
   Tooltip,
   Divider,
   Stack,
@@ -81,7 +78,6 @@ const UserManagement: React.FC = () => {
     setData,
     setField,
     validate,
-    clearErrors,
     reset,
   } = useFormValidation<CreateUserFormData>(createUserSchema, {
     name: '',
@@ -135,7 +131,7 @@ const UserManagement: React.FC = () => {
       if (user.role === 'admin') {
         showSnackbar(
           'Não é permitido editar usuários administradores',
-          'error'
+          'error',
         );
         return;
       }
@@ -206,7 +202,7 @@ const UserManagement: React.FC = () => {
           editingUser
             ? 'Usuário atualizado com sucesso!'
             : 'Usuário criado com sucesso!',
-          'success'
+          'success',
         );
         handleCloseDialog();
         fetchUsers();
@@ -261,7 +257,7 @@ const UserManagement: React.FC = () => {
     if (user && user.role === 'admin') {
       showSnackbar(
         'Não é permitido alterar o status de usuários administradores',
-        'error'
+        'error',
       );
       return;
     }
@@ -274,7 +270,7 @@ const UserManagement: React.FC = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       const data = await response.json();
@@ -315,67 +311,6 @@ const UserManagement: React.FC = () => {
       default:
         return role;
     }
-  };
-
-  const renderLoadingSkeleton = () => {
-    if (isMobile) {
-      return (
-        <Stack spacing={2}>
-          {[1, 2, 3].map((i) => (
-            <Card key={i}>
-              <CardContent>
-                <Skeleton variant="text" width="60%" height={32} />
-                <Skeleton variant="text" width="40%" height={24} />
-                <Box sx={{ mt: 1 }}>
-                  <Skeleton variant="rectangular" width={80} height={24} />
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Stack>
-      );
-    }
-
-    return (
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Tipo</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Criado em</TableCell>
-              <TableCell align="center">Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {[1, 2, 3].map((i) => (
-              <TableRow key={i}>
-                <TableCell>
-                  <Skeleton variant="text" width="60%" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton variant="text" width="80%" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton variant="rectangular" width={80} height={24} />
-                </TableCell>
-                <TableCell>
-                  <Skeleton variant="rectangular" width={60} height={24} />
-                </TableCell>
-                <TableCell>
-                  <Skeleton variant="text" width="40%" />
-                </TableCell>
-                <TableCell align="center">
-                  <Skeleton variant="circular" width={32} height={32} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
   };
 
   const renderEmptyState = () => (

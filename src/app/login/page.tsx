@@ -8,19 +8,14 @@ import {
   Button,
   Typography,
   Alert,
-  CircularProgress,
   useTheme,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   IconButton,
-  Chip,
-  Divider,
-  useMediaQuery,
 } from '@mui/material';
 import {
-  Lock as LockIcon,
   Visibility,
   VisibilityOff,
   Info as InfoIcon,
@@ -29,9 +24,6 @@ import {
   LocalHospital as MedicoIcon,
   Person as PacienteIcon,
   HealthAndSafety as HealthIcon,
-  MedicalServices as MedicalIcon,
-  Login as LoginIcon,
-  ContentCopy as CopyIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -49,7 +41,6 @@ export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const {
     data: formData,
@@ -57,7 +48,6 @@ export default function LoginPage() {
     setField,
     validate,
     clearErrors,
-    reset,
   } = useFormValidation<LoginFormData>(loginSchema, {
     email: '',
     password: '',
@@ -170,18 +160,6 @@ export default function LoginPage() {
         </div>
       }
     >
-      <style jsx global>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-20px) rotate(180deg);
-          }
-        }
-      `}</style>
-
       <Box
         sx={{
           minHeight: '100vh',
@@ -751,7 +729,7 @@ export default function LoginPage() {
                       onClick={() =>
                         handleCopyCredentials(
                           credential.email,
-                          credential.password
+                          credential.password,
                         )
                       }
                       sx={{

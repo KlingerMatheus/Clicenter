@@ -17,14 +17,12 @@ import {
   Card,
   CardContent,
   Stack,
-  Skeleton,
   Alert,
 } from '@mui/material';
 import {
   Event as EventIcon,
   Person as PersonIcon,
   LocalHospital as HospitalIcon,
-  Schedule as ScheduleIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';

@@ -9,12 +9,9 @@ import {
   Button,
   Grid,
   Avatar,
-  Divider,
   Alert,
   Snackbar,
   useTheme,
-  Card,
-  CardContent,
   Stack,
   Chip,
   IconButton,
@@ -36,13 +33,10 @@ import {
   Edit as EditIcon,
   Save as SaveIcon,
   Cancel as CancelIcon,
-  Security as SecurityIcon,
-  Notifications as NotificationsIcon,
   Bloodtype as BloodIcon,
   Height as HeightIcon,
   MonitorWeight as WeightIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface PatientProfile {
@@ -70,7 +64,6 @@ interface PatientProfile {
 
 const SettingsPage: React.FC = () => {
   const theme = useTheme();
-  const { token, user } = useAuth();
   const [profile, setProfile] = useState<PatientProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
@@ -193,7 +186,7 @@ const SettingsPage: React.FC = () => {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: 'Erro ao atualizar perfil',
+        message: `Erro ao atualizar perfil: ${error}`,
         severity: 'error',
       });
     }
@@ -210,10 +203,6 @@ const SettingsPage: React.FC = () => {
       message: 'Contato de emergência atualizado!',
       severity: 'success',
     });
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR');
   };
 
   const calculateAge = (dateOfBirth: string) => {

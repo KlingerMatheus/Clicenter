@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   Dashboard as DashboardIcon,
   People as PeopleIcon,
@@ -43,7 +43,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   userType,
 }) => {
   const router = useRouter();
-  const pathname = usePathname();
   const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);

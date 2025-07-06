@@ -14,15 +14,12 @@ import {
   Alert,
   Snackbar,
   useTheme,
-  useMediaQuery,
   Avatar,
   Divider,
   Stack,
   IconButton,
   InputAdornment,
-  CircularProgress,
   Card,
-  CardContent,
   CardHeader,
 } from '@mui/material';
 import {
@@ -33,14 +30,12 @@ import {
   VisibilityOff as VisibilityOffIcon,
   Save as SaveIcon,
   Cancel as CancelIcon,
-  Security as SecurityIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
 import LoadingButton from '../../components/LoadingButton';
 
 const SettingsPage: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { user, token, updateUser } = useAuth();
 
   const {
@@ -91,9 +86,9 @@ const SettingsPage: React.FC = () => {
 
   const handleInputChange =
     (field: keyof ProfileUpdateFormData) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setField(field, event.target.value);
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setField(field, event.target.value);
+      };
 
   const validateForm = (): boolean => {
     return validate();

@@ -6,8 +6,6 @@ import {
   Typography,
   Paper,
   Grid,
-  Card,
-  CardContent,
   Button,
   TextField,
   FormControl,
@@ -24,8 +22,6 @@ import {
   Alert,
   Snackbar,
   useTheme,
-  useMediaQuery,
-  Divider,
   List,
   ListItem,
   ListItemAvatar,
@@ -34,23 +30,17 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
-  FormLabel,
   CircularProgress,
 } from '@mui/material';
 import {
   CalendarToday as CalendarIcon,
-  Schedule as ScheduleIcon,
   Person as PersonIcon,
   MedicalServices as MedicalIcon,
-  LocationOn as LocationIcon,
-  Phone as PhoneIcon,
-  Email as EmailIcon,
   CheckCircle as CheckIcon,
   Add as AddIcon,
   Event as EventIcon,
   AccessTime as TimeIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface Doctor {
@@ -72,20 +62,8 @@ interface AvailableSlot {
   available: boolean;
 }
 
-interface ConsultationRequest {
-  doctorId: string;
-  doctorName: string;
-  specialty: string;
-  date: string;
-  time: string;
-  symptoms: string;
-  notes?: string;
-}
-
 const ScheduleConsultationPage: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { token } = useAuth();
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -246,29 +224,29 @@ const ScheduleConsultationPage: React.FC = () => {
   }, []);
 
   const specialties = Array.from(
-    new Set(doctors.map((doctor) => doctor.specialty))
+    new Set(doctors.map((doctor) => doctor.specialty)),
   );
 
   const filteredDoctors = doctors.filter(
-    (doctor) => !selectedSpecialty || doctor.specialty === selectedSpecialty
+    (doctor) => !selectedSpecialty || doctor.specialty === selectedSpecialty,
   );
 
   const availableDates = selectedDoctor
     ? Array.from(
-        new Set(
-          selectedDoctor.availableSlots
-            .filter((slot) => slot.available)
-            .map((slot) => slot.date)
-        )
-      ).sort()
+      new Set(
+        selectedDoctor.availableSlots
+          .filter((slot) => slot.available)
+          .map((slot) => slot.date),
+      ),
+    ).sort()
     : [];
 
   const availableTimes =
     selectedDoctor && selectedDate
       ? selectedDoctor.availableSlots
-          .filter((slot) => slot.date === selectedDate && slot.available)
-          .map((slot) => slot.time)
-          .sort()
+        .filter((slot) => slot.date === selectedDate && slot.available)
+        .map((slot) => slot.time)
+        .sort()
       : [];
 
   const handleDoctorSelect = (doctor: Doctor) => {
@@ -320,7 +298,7 @@ const ScheduleConsultationPage: React.FC = () => {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: 'Erro ao agendar consulta. Tente novamente.',
+        message: `Erro ao agendar consulta. Tente novamente. ${error}`,
         severity: 'error',
       });
     } finally {

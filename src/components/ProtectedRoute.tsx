@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import ContentLoading from './ContentLoading';

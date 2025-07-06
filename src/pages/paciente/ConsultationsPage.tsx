@@ -35,9 +35,7 @@ import {
   Schedule as ScheduleIcon,
   CheckCircle as CheckIcon,
   Pending as PendingIcon,
-  Person as PersonIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface Consultation {
@@ -58,7 +56,6 @@ interface Consultation {
 const ConsultationsPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { token } = useAuth();
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedConsultation, setSelectedConsultation] =
@@ -189,7 +186,7 @@ const ConsultationsPage: React.FC = () => {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: 'Erro ao cancelar consulta',
+        message: `Erro ao cancelar consulta: ${error}`,
         severity: 'error',
       });
     }
@@ -327,16 +324,16 @@ const ConsultationsPage: React.FC = () => {
         </Button>
         {(consultation.status === 'scheduled' ||
           consultation.status === 'confirmed') && (
-          <Button
-            size="small"
-            startIcon={<CancelIcon />}
-            onClick={() => handleCancelConsultation(consultation._id)}
-            color="error"
-            variant="outlined"
-          >
-            Cancelar
-          </Button>
-        )}
+            <Button
+              size="small"
+              startIcon={<CancelIcon />}
+              onClick={() => handleCancelConsultation(consultation._id)}
+              color="error"
+              variant="outlined"
+            >
+              Cancelar
+            </Button>
+          )}
       </CardActions>
     </Card>
   );
@@ -441,15 +438,15 @@ const ConsultationsPage: React.FC = () => {
                   </IconButton>
                   {(consultation.status === 'scheduled' ||
                     consultation.status === 'confirmed') && (
-                    <IconButton
-                      size="small"
-                      onClick={() => handleCancelConsultation(consultation._id)}
-                      title="Cancelar Consulta"
-                      color="error"
-                    >
-                      <CancelIcon />
-                    </IconButton>
-                  )}
+                      <IconButton
+                        size="small"
+                        onClick={() => handleCancelConsultation(consultation._id)}
+                        title="Cancelar Consulta"
+                        color="error"
+                      >
+                        <CancelIcon />
+                      </IconButton>
+                    )}
                 </Box>
               </TableCell>
             </TableRow>

@@ -28,18 +28,13 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Divider,
 } from '@mui/material';
 import {
   History as HistoryIcon,
-  MedicalServices as MedicalIcon,
-  Person as PersonIcon,
   CalendarToday as CalendarIcon,
   Description as DescriptionIcon,
-  LocalHospital as PrescriptionIcon,
   Visibility as ViewIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface MedicalRecord {
@@ -66,11 +61,10 @@ interface MedicalRecord {
 const MedicalRecordPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { token } = useAuth();
   const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedRecord, setSelectedRecord] = useState<MedicalRecord | null>(
-    null
+    null,
   );
   const [openDialog, setOpenDialog] = useState(false);
 

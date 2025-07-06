@@ -14,7 +14,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField,
   Chip,
   IconButton,
   Alert,
@@ -27,12 +26,10 @@ import {
   Stack,
   Grid,
   Avatar,
-  Divider,
   List,
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Badge,
   Tabs,
   Tab,
 } from '@mui/material';
@@ -43,15 +40,12 @@ import {
   CalendarToday as CalendarIcon,
   MedicalServices as MedicalIcon,
   History as HistoryIcon,
-  Edit as EditIcon,
   Visibility as ViewIcon,
-  Add as AddIcon,
   LocationOn as LocationIcon,
   Bloodtype as BloodIcon,
   Height as HeightIcon,
   MonitorWeight as WeightIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface Patient {
@@ -97,13 +91,12 @@ interface Consultation {
 const PatientsPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { token } = useAuth();
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogType, setDialogType] = useState<'view' | 'edit' | 'history'>(
-    'view'
+    'view',
   );
   const [activeTab, setActiveTab] = useState(0);
   const [snackbar, setSnackbar] = useState({
@@ -356,7 +349,7 @@ const PatientsPage: React.FC = () => {
 
   const handleOpenDialog = (
     patient: Patient,
-    type: 'view' | 'edit' | 'history'
+    type: 'view' | 'edit' | 'history',
   ) => {
     setSelectedPatient(patient);
     setDialogType(type);
@@ -599,7 +592,7 @@ const PatientsPage: React.FC = () => {
                 <Typography variant="caption" color="text.secondary">
                   {
                     patient.consultations.filter(
-                      (c) => c.status === 'completed'
+                      (c) => c.status === 'completed',
                     ).length
                   }{' '}
                   concluídas
@@ -911,11 +904,11 @@ const PatientsPage: React.FC = () => {
                                     </Typography>
                                     <Chip
                                       label={getStatusLabel(
-                                        consultation.status
+                                        consultation.status,
                                       )}
                                       color={
                                         getStatusColor(
-                                          consultation.status
+                                          consultation.status,
                                         ) as any
                                       }
                                       size="small"

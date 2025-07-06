@@ -15,10 +15,6 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Chip,
   IconButton,
   Alert,
@@ -29,7 +25,6 @@ import {
   CardContent,
   CardActions,
   Stack,
-  Divider,
   Grid,
 } from '@mui/material';
 import {
@@ -37,15 +32,9 @@ import {
   Edit as EditIcon,
   Description as ReportIcon,
   LocalHospital as PrescriptionIcon,
-  Person as PersonIcon,
   Schedule as ScheduleIcon,
-  CheckCircle as CheckIcon,
-  Cancel as CancelIcon,
-  Add as AddIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
-import LoadingButton from '../../components/LoadingButton';
 
 interface Consultation {
   _id: string;
@@ -66,7 +55,6 @@ interface Consultation {
 const ConsultationsPage: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { token } = useAuth();
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedConsultation, setSelectedConsultation] =
@@ -177,7 +165,7 @@ const ConsultationsPage: React.FC = () => {
 
   const handleOpenDialog = (
     consultation: Consultation,
-    type: 'reschedule' | 'report' | 'prescription'
+    type: 'reschedule' | 'report' | 'prescription',
   ) => {
     setSelectedConsultation(consultation);
     setDialogType(type);
@@ -239,7 +227,7 @@ const ConsultationsPage: React.FC = () => {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: 'Erro ao processar solicitação',
+        message: `Erro ao processar solicitação ${error}`,
         severity: 'error',
       });
     }

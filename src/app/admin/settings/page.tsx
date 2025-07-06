@@ -1,6 +1,3 @@
-'use client';
-
-import React, { useState } from 'react';
 import AdminLayout from '../../../components/AdminLayout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import SettingsPage from '../../../pages/admin/SettingsPage';

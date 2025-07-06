@@ -14,9 +14,6 @@ import {
   Tooltip,
 } from '@mui/material';
 import {
-  Dashboard as DashboardIcon,
-  People as PeopleIcon,
-  Settings as SettingsIcon,
   Brightness4 as DarkModeIcon,
   Brightness7 as LightModeIcon,
   Logout as LogoutIcon,
@@ -59,7 +56,6 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
   onLogout,
 }) => {
   const theme = useTheme();
-  const router = useRouter();
   const pathname = usePathname();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -69,10 +65,6 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
 
   const handleProfileClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleSettings = () => {
-    router.push('/admin/settings');
   };
 
   return (

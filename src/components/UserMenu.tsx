@@ -2,11 +2,6 @@
 
 import React from 'react';
 import { Box, Popover, Typography, Divider, useTheme } from '@mui/material';
-import {
-  Settings as SettingsIcon,
-  Logout as LogoutIcon,
-  KeyboardArrowUp as KeyboardArrowUpIcon,
-} from '@mui/icons-material';
 
 interface MenuItem {
   label: string;

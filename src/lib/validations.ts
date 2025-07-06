@@ -94,7 +94,7 @@ export const profileUpdateSchema = z
     {
       message: 'Senha atual é obrigatória para alterar a senha',
       path: ['currentPassword'],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -107,7 +107,7 @@ export const profileUpdateSchema = z
     {
       message: 'As senhas não coincidem',
       path: ['confirmPassword'],
-    }
+    },
   );
 
 export type ProfileUpdateFormData = z.infer<typeof profileUpdateSchema>;

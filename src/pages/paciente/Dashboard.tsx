@@ -11,7 +11,6 @@ import {
   Chip,
   Stack,
   useTheme,
-  useMediaQuery,
 } from '@mui/material';
 import {
   Event,
@@ -22,10 +21,8 @@ import {
   Cancel,
   Pending,
   History,
-  LocalHospital,
   Description,
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
 
 interface Consultation {
@@ -51,8 +48,6 @@ interface MedicalRecord {
 
 const PatientDashboard: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { token } = useAuth();
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -191,10 +186,10 @@ const PatientDashboard: React.FC = () => {
   const stats = {
     totalConsultations: consultations.length,
     completedConsultations: consultations.filter(
-      (c) => c.status === 'completed'
+      (c) => c.status === 'completed',
     ).length,
     scheduledConsultations: consultations.filter(
-      (c) => c.status === 'scheduled'
+      (c) => c.status === 'scheduled',
     ).length,
     totalRecords: medicalRecords.length,
   };
@@ -327,7 +322,7 @@ const PatientDashboard: React.FC = () => {
             </Typography>
 
             {consultations.filter(
-              (c) => c.status === 'scheduled' || c.status === 'confirmed'
+              (c) => c.status === 'scheduled' || c.status === 'confirmed',
             ).length === 0 ? (
               <Typography
                 color="text.secondary"
@@ -339,7 +334,7 @@ const PatientDashboard: React.FC = () => {
               <Stack spacing={2}>
                 {consultations
                   .filter(
-                    (c) => c.status === 'scheduled' || c.status === 'confirmed'
+                    (c) => c.status === 'scheduled' || c.status === 'confirmed',
                   )
                   .slice(0, 3)
                   .map((consultation) => (
