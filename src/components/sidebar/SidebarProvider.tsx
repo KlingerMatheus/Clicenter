@@ -8,6 +8,7 @@ import {
   Settings as SettingsIcon,
   Event as EventIcon,
   MedicalServices as MedicalIcon,
+  Add as AddIcon,
 } from '@mui/icons-material';
 import { MenuItem, UserInfo } from './SidebarContent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -151,6 +152,12 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
           icon: <DashboardIcon />,
           path: '/dashboard',
           onClick: () => router.push('/dashboard')
+        },
+        {
+          text: 'Agendar Consulta',
+          icon: <AddIcon />,
+          path: '/paciente/schedule',
+          onClick: () => router.push('/paciente/schedule')
         },
         {
           text: 'Minhas Consultas',
