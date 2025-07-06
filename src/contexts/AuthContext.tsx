@@ -16,6 +16,7 @@ interface AuthContextType {
     token: string | null;
     login: (email: string, password: string) => Promise<boolean>;
     logout: () => void;
+    updateUser: (userData: Partial<User>) => void;
     isLoading: boolean;
 }
 
@@ -116,11 +117,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         router.push('/login');
     };
 
+    const updateUser = (userData: Partial<User>) => {
+        if (user) {
+            setUser({ ...user, ...userData });
+        }
+    };
+
     const value = {
         user,
         token,
         login,
         logout,
+        updateUser,
         isLoading
     };
 

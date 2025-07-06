@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useFormValidation } from '../../hooks/useFormValidation';
+import { createUserSchema, editUserSchema, CreateUserFormData, EditUserFormData } from '../../lib/validations';
 import {
     Box,
     Typography,
@@ -55,13 +57,6 @@ interface User {
     updatedAt: string;
 }
 
-interface UserFormData {
-    name: string;
-    email: string;
-    role: 'admin' | 'medico' | 'paciente';
-    password?: string;
-}
-
 const UserManagement: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -71,7 +66,16 @@ const UserManagement: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<User | null>(null);
-    const [formData, setFormData] = useState<UserFormData>({
+
+    const {
+        data: formData,
+        errors,
+        setData,
+        setField,
+        validate,
+        clearErrors,
+        reset
+    } = useFormValidation<CreateUserFormData>(createUserSchema, {
         name: '',
         email: '',
         role: 'paciente',
@@ -120,7 +124,7 @@ const UserManagement: React.FC = () => {
     const handleOpenDialog = (user?: User) => {
         if (user) {
             setEditingUser(user);
-            setFormData({
+            setData({
                 name: user.name,
                 email: user.email,
                 role: user.role,
@@ -128,7 +132,7 @@ const UserManagement: React.FC = () => {
             });
         } else {
             setEditingUser(null);
-            setFormData({
+            reset({
                 name: '',
                 email: '',
                 role: 'paciente',
@@ -141,7 +145,7 @@ const UserManagement: React.FC = () => {
     const handleCloseDialog = () => {
         setDialogOpen(false);
         setEditingUser(null);
-        setFormData({
+        reset({
             name: '',
             email: '',
             role: 'paciente',
@@ -150,6 +154,11 @@ const UserManagement: React.FC = () => {
     };
 
     const handleSubmit = async () => {
+        if (!validate()) {
+            showSnackbar('Por favor, corrija os erros no formulário', 'error');
+            return;
+        }
+
         try {
             const url = editingUser
                 ? `${API_BASE_URL}/users/${editingUser._id}`
@@ -159,7 +168,7 @@ const UserManagement: React.FC = () => {
 
             const payload = { ...formData };
             if (editingUser && !formData.password) {
-                delete payload.password;
+                delete (payload as any).password;
             }
 
             const response = await fetch(url, {
@@ -522,9 +531,11 @@ const UserManagement: React.FC = () => {
                             fullWidth
                             label="Nome"
                             value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            onChange={(e) => setField('name', e.target.value)}
                             margin="normal"
                             required
+                            error={!!errors.name}
+                            helperText={errors.name}
                             sx={{ mb: 2 }}
                         />
                         <TextField
@@ -532,32 +543,40 @@ const UserManagement: React.FC = () => {
                             label="Email"
                             type="email"
                             value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            onChange={(e) => setField('email', e.target.value)}
                             margin="normal"
                             required
+                            error={!!errors.email}
+                            helperText={errors.email}
                             sx={{ mb: 2 }}
                         />
-                        <FormControl fullWidth margin="normal" sx={{ mb: 2 }}>
+                        <FormControl fullWidth margin="normal" sx={{ mb: 2 }} error={!!errors.role}>
                             <InputLabel>Tipo de Usuário</InputLabel>
                             <Select
                                 value={formData.role}
-                                onChange={(e) => setFormData({ ...formData, role: e.target.value as any })}
+                                onChange={(e) => setField('role', e.target.value)}
                                 label="Tipo de Usuário"
                             >
                                 <MenuItem value="admin">Admin</MenuItem>
                                 <MenuItem value="medico">Médico</MenuItem>
                                 <MenuItem value="paciente">Paciente</MenuItem>
                             </Select>
+                            {errors.role && (
+                                <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.5 }}>
+                                    {errors.role}
+                                </Typography>
+                            )}
                         </FormControl>
                         <TextField
                             fullWidth
                             label="Senha"
                             type="password"
                             value={formData.password || ''}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            onChange={(e) => setField('password', e.target.value)}
                             margin="normal"
                             required={!editingUser}
-                            helperText={editingUser ? 'Preencha para alterar a senha' : 'Obrigatório'}
+                            error={!!errors.password}
+                            helperText={errors.password || (editingUser ? 'Preencha para alterar a senha' : 'Obrigatório')}
                         />
                     </Box>
                 </DialogContent>

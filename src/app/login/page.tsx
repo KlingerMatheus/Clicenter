@@ -36,10 +36,10 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import ClientOnly from '../../components/ClientOnly';
+import { useFormValidation } from '../../hooks/useFormValidation';
+import { loginSchema, LoginFormData } from '../../lib/validations';
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +49,18 @@ export default function LoginPage() {
     const router = useRouter();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const {
+        data: formData,
+        errors,
+        setField,
+        validate,
+        clearErrors,
+        reset
+    } = useFormValidation<LoginFormData>(loginSchema, {
+        email: '',
+        password: ''
+    });
 
     const testCredentials = [
         {
@@ -80,10 +92,16 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+        clearErrors();
+
+        if (!validate()) {
+            return;
+        }
+
         setIsLoading(true);
 
         try {
-            const success = await login(email, password);
+            const success = await login(formData.email, formData.password);
 
             if (success) {
                 router.push('/admin/dashboard');
@@ -111,8 +129,8 @@ export default function LoginPage() {
     };
 
     const handleLoginAs = async (credential: typeof testCredentials[0]) => {
-        setEmail(credential.email);
-        setPassword(credential.password);
+        setField('email', credential.email);
+        setField('password', credential.password);
         setShowCredentials(false);
 
         // Auto-login
@@ -271,11 +289,13 @@ export default function LoginPage() {
                             fullWidth
                             label="Email"
                             type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={(e) => setField('email', e.target.value)}
                             margin="normal"
                             required
                             disabled={isLoading}
+                            error={!!errors.email}
+                            helperText={errors.email}
                             sx={{
                                 mb: 2,
                                 '& .MuiOutlinedInput-root': {
@@ -307,11 +327,13 @@ export default function LoginPage() {
                             fullWidth
                             label="Senha"
                             type={showPassword ? 'text' : 'password'}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={(e) => setField('password', e.target.value)}
                             margin="normal"
                             required
                             disabled={isLoading}
+                            error={!!errors.password}
+                            helperText={errors.password}
                             InputProps={{
                                 endAdornment: (
                                     <Button

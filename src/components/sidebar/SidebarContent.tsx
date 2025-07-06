@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Box,
   List,
@@ -57,6 +58,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
   onLogout,
 }) => {
   const theme = useTheme();
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -68,7 +70,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
   };
 
   const handleSettings = () => {
-    console.log('Settings clicked');
+    router.push('/admin/settings');
   };
 
   return (

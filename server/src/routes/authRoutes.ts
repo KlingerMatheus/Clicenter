@@ -9,5 +9,6 @@ router.post('/login', AuthController.login);
 
 // Rotas protegidas
 router.get('/me', auth, AuthController.me);
+router.put('/profile', auth, AuthController.updateProfile);
 
 export default router; 

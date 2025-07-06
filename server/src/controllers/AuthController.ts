@@ -89,6 +89,85 @@ export class AuthController {
       });
     }
   }
+
+  async updateProfile(req: Request, res: Response): Promise<void> {
+    try {
+      const user = (req as any).user;
+      const { name, email, currentPassword, newPassword } = req.body;
+
+      // Validar dados obrigatórios
+      if (!name || !email) {
+        res.status(400).json({
+          success: false,
+          message: 'Nome e email são obrigatórios'
+        });
+        return;
+      }
+
+      // Verificar se o email já está em uso por outro usuário
+      const existingUser = await User.findOne({ email, _id: { $ne: user._id } });
+      if (existingUser) {
+        res.status(400).json({
+          success: false,
+          message: 'Este email já está em uso'
+        });
+        return;
+      }
+
+      // Preparar dados para atualização
+      const updateData: any = { name, email };
+
+      // Se uma nova senha foi fornecida, validar a senha atual
+      if (newPassword) {
+        if (!currentPassword) {
+          res.status(400).json({
+            success: false,
+            message: 'Senha atual é obrigatória para alterar a senha'
+          });
+          return;
+        }
+
+        const currentUser = await User.findById(user._id).select('+password');
+        const isCurrentPasswordValid = await bcrypt.compare(currentPassword, currentUser!.password);
+        
+        if (!isCurrentPasswordValid) {
+          res.status(400).json({
+            success: false,
+            message: 'Senha atual incorreta'
+          });
+          return;
+        }
+
+        updateData.password = await bcrypt.hash(newPassword, 10);
+      }
+
+      // Atualizar usuário
+      const updatedUser = await User.findByIdAndUpdate(
+        user._id,
+        updateData,
+        { new: true, runValidators: true }
+      );
+
+      if (!updatedUser) {
+        res.status(404).json({
+          success: false,
+          message: 'Usuário não encontrado'
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        data: updatedUser,
+        message: 'Perfil atualizado com sucesso'
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error instanceof Error ? error.message : 'Erro interno do servidor'
+      });
+    }
+  }
 }
 
 export default new AuthController(); 
