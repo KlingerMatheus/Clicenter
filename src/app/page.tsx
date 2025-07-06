@@ -11,8 +11,20 @@ export default function HomePage() {
   useEffect(() => {
     if (!isLoading) {
       if (user) {
-        // Se já está logado, redireciona para o dashboard
-        router.push('/admin/dashboard');
+        // Redireciona baseado no tipo de usuário
+        switch (user.role) {
+          case 'admin':
+            router.push('/dashboard');
+            break;
+          case 'medico':
+            router.push('/dashboard');
+            break;
+          case 'paciente':
+            router.push('/dashboard');
+            break;
+          default:
+            router.push('/login');
+        }
       } else {
         // Se não está logado, redireciona para login
         router.push('/login');

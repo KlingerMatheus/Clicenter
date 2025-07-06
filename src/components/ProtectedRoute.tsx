@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import ContentLoading from './ContentLoading';
+import AccessDenied from './AccessDenied';
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -30,25 +31,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
     }
 
     if (requiredRole && user.role !== requiredRole) {
-        return (
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100vh',
-                    gap: 2
-                }}
-            >
-                <Typography variant="h5" color="error" gutterBottom>
-                    Acesso Negado
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    Você não tem permissão para acessar esta página.
-                </Typography>
-            </Box>
-        );
+        return <AccessDenied />;
     }
 
     return <>{children}</>;

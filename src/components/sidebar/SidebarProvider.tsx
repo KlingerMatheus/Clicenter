@@ -83,8 +83,8 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         {
           text: 'Painel',
           icon: <DashboardIcon />,
-          path: '/admin/dashboard',
-          onClick: () => router.push('/admin/dashboard')
+          path: '/dashboard',
+          onClick: () => router.push('/dashboard')
         },
         {
           text: 'Gerenciar Usuários',
@@ -119,8 +119,8 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         {
           text: 'Dashboard',
           icon: <DashboardIcon />,
-          path: '/medico/dashboard',
-          onClick: () => router.push('/medico/dashboard')
+          path: '/dashboard',
+          onClick: () => router.push('/dashboard')
         },
         {
           text: 'Minhas Consultas',
@@ -149,8 +149,8 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         {
           text: 'Dashboard',
           icon: <DashboardIcon />,
-          path: '/paciente/dashboard',
-          onClick: () => router.push('/paciente/dashboard')
+          path: '/dashboard',
+          onClick: () => router.push('/dashboard')
         },
         {
           text: 'Minhas Consultas',

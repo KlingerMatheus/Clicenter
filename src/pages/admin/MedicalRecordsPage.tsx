@@ -304,13 +304,6 @@ const MedicalRecordsPage: React.FC = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                <MedicalIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                    Históricos Médicos
-                </Typography>
-            </Box>
-
             <Paper sx={{
                 p: 2,
                 mb: 3,

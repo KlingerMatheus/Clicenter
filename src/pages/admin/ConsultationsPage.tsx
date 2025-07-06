@@ -258,13 +258,6 @@ const ConsultationsPage: React.FC = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                <EventIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                    Consultas
-                </Typography>
-            </Box>
-
             <Paper sx={{
                 p: 2,
                 mb: 3,

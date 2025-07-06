@@ -105,7 +105,7 @@ export default function LoginPage() {
             const success = await login(formData.email, formData.password);
 
             if (success) {
-                router.push('/admin/dashboard');
+                router.push('/dashboard');
             } else {
                 setError('Email ou senha inválidos');
             }
@@ -141,7 +141,7 @@ export default function LoginPage() {
         try {
             const success = await login(credential.email, credential.password);
             if (success) {
-                router.push('/admin/dashboard');
+                router.push('/dashboard');
             } else {
                 setError('Erro ao fazer login automático');
             }

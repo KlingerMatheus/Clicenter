@@ -1,15 +1,15 @@
 'use client';
 
 import React from 'react';
-import Dashboard from '../../../pages/medico/Dashboard';
 import MedicoLayout from '../../../components/MedicoLayout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
+import PatientsPage from '../../../pages/medico/PatientsPage';
 
-export default function MedicoDashboardPage() {
+export default function MedicoPatientsPage() {
     return (
         <ProtectedRoute requiredRole="medico">
-            <MedicoLayout title="Dashboard">
-                <Dashboard />
+            <MedicoLayout title="Meus Pacientes">
+                <PatientsPage />
             </MedicoLayout>
         </ProtectedRoute>
     );
