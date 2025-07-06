@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Dashboard as DashboardIcon,
   People as PeopleIcon,
@@ -40,6 +40,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   userType
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -80,12 +81,20 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         {
           text: 'Painel',
           icon: <DashboardIcon />,
+          path: '/admin/dashboard',
           onClick: () => router.push('/admin/dashboard')
         },
         {
           text: 'Gerenciar Usuários',
           icon: <PeopleIcon />,
+          path: '/admin/users',
           onClick: () => router.push('/admin/users')
+        },
+        {
+          text: 'Configurações',
+          icon: <SettingsIcon />,
+          path: '/admin/settings',
+          onClick: () => router.push('/admin/settings')
         },
       ];
     }
@@ -95,11 +104,13 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       {
         text: 'Dashboard',
         icon: <DashboardIcon />,
+        path: '/dashboard',
         onClick: () => console.log('Dashboard clicked')
       },
       {
         text: 'Usuários',
         icon: <PeopleIcon />,
+        path: '/users',
         onClick: () => console.log('Usuários clicked')
       },
     ];

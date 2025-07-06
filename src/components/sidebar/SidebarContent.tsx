@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Box,
   List,
@@ -29,6 +29,7 @@ import UserMenu from '../UserMenu';
 export interface MenuItem {
   text: string;
   icon: React.ReactNode;
+  path?: string;
   onClick?: () => void;
 }
 
@@ -59,6 +60,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
 }) => {
   const theme = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -151,39 +153,75 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
           : 'rgba(240, 240, 240, 1)',
       }}>
         <List>
-          {menuItems.map((item) => (
-            <ListItem key={item.text} disablePadding>
-              <Tooltip title={isExpanded ? '' : item.text} placement="right">
-                <ListItemButton
-                  onClick={item.onClick}
-                  sx={{
-                    mx: 1,
-                    borderRadius: 1.5,
-                    minHeight: 48,
-                    mb: 0.5,
-                    '&:hover': {
-                      backgroundColor: theme.palette.action.hover,
-                    },
-                    '&.Mui-selected': {
-                      backgroundColor: theme.palette.primary.main,
-                      color: theme.palette.primary.contrastText,
+          {menuItems.map((item) => {
+            const isActive = item.path && pathname === item.path;
+
+            return (
+              <ListItem key={item.text} disablePadding>
+                <Tooltip title={isExpanded ? '' : item.text} placement="right">
+                  <ListItemButton
+                    onClick={item.onClick}
+                    selected={!!isActive}
+                    sx={{
+                      mx: 1,
+                      borderRadius: 1.5,
+                      minHeight: 48,
+                      mb: 0.5,
+                      position: 'relative',
+                      transition: 'all 0.2s ease-in-out',
                       '&:hover': {
-                        backgroundColor: theme.palette.primary.dark,
+                        backgroundColor: theme.palette.action.hover,
                       },
-                    },
-                  }}
-                >
-                  <ListItemIcon sx={{
-                    minWidth: 40,
-                    color: theme.palette.mode === 'dark' ? 'inherit' : theme.palette.primary.main
-                  }}>
-                    {item.icon}
-                  </ListItemIcon>
-                  {isExpanded && <ListItemText primary={item.text} sx={{ '& .MuiTypography-root': { fontSize: '0.875rem', whiteSpace: 'nowrap', fontWeight: 500 } }} />}
-                </ListItemButton>
-              </Tooltip>
-            </ListItem>
-          ))}
+                      '&.Mui-selected': {
+                        backgroundColor: theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.75)'
+                          : 'rgba(25, 118, 210, 0.08)',
+                        color: theme.palette.primary.main,
+                        '&:hover': {
+                          backgroundColor: theme.palette.mode === 'dark'
+                            ? 'rgba(255, 255, 255, 0.85)'
+                            : 'rgba(25, 118, 210, 0.12)',
+                        },
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          left: 0,
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          width: 3,
+                          height: 20,
+                          backgroundColor: theme.palette.primary.main,
+                          borderRadius: '0 2px 2px 0',
+                          boxShadow: '0 0 8px rgba(25, 118, 210, 0.3)',
+                        },
+                      },
+                    }}
+                  >
+                    <ListItemIcon sx={{
+                      minWidth: 40,
+                      color: isActive
+                        ? theme.palette.primary.main
+                        : (theme.palette.mode === 'dark' ? 'inherit' : theme.palette.primary.main)
+                    }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    {isExpanded && (
+                      <ListItemText
+                        primary={item.text}
+                        sx={{
+                          '& .MuiTypography-root': {
+                            fontSize: '0.875rem',
+                            whiteSpace: 'nowrap',
+                            fontWeight: isActive ? 600 : 500
+                          }
+                        }}
+                      />
+                    )}
+                  </ListItemButton>
+                </Tooltip>
+              </ListItem>
+            );
+          })}
         </List>
       </Box>
 
