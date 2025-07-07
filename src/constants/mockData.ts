@@ -1,14 +1,3 @@
-import {
-  Consultation,
-  Patient,
-  Doctor,
-  MedicalRecord,
-  PatientProfile,
-  ConsultationReminder,
-  AdminConsultation,
-  AdminMedicalRecord,
-} from '../types';
-
 // ===== DADOS MOCKADOS DE CONSULTAS =====
 
 export const MOCK_CONSULTATIONS_MEDICO = [

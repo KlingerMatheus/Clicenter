@@ -211,7 +211,7 @@ export interface CreateUserFormData {
 // ===== TIPOS DE COMPONENTES =====
 export interface MenuItem {
   label: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<unknown>;
   href: string;
   badge?: number;
 }
@@ -252,7 +252,7 @@ export interface UseFormValidationReturn<T> {
   data: T;
   errors: ValidationErrors;
   setData: (data: T) => void;
-  setField: (field: keyof T, value: any) => void;
+  setField: (field: keyof T, value: unknown) => void;
   validate: () => boolean;
   reset: (data?: T) => void;
   clearErrors: () => void;
@@ -263,10 +263,10 @@ export interface LayoutProps {
   children: React.ReactNode;
 }
 
-export interface AdminLayoutProps extends LayoutProps {}
-export interface DoctorLayoutProps extends LayoutProps {}
-export interface PatientLayoutProps extends LayoutProps {}
-export interface MedicoLayoutProps extends LayoutProps {}
+export type AdminLayoutProps = LayoutProps;
+export type DoctorLayoutProps = LayoutProps;
+export type PatientLayoutProps = LayoutProps;
+export type MedicoLayoutProps = LayoutProps;
 
 // ===== TIPOS DE COMPONENTES UI =====
 export interface LoadingButtonProps extends React.ComponentProps<'button'> {
@@ -317,7 +317,7 @@ export interface UserMenuProps {
 }
 
 // ===== TIPOS DE API =====
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   message?: string;
   data?: T;
@@ -343,4 +343,4 @@ export interface DashboardStats {
   totalRecords: number;
   recentConsultations: number;
   pendingConsultations: number;
-} 
+}

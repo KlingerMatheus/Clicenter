@@ -1,5 +1,9 @@
 export { default as Sidebar } from './Sidebar';
 export { default as SidebarContent } from './SidebarContent';
+export { default as SidebarHeader } from './SidebarHeader';
+export { default as SidebarMenu } from './SidebarMenu';
+export { default as SidebarMenuItem } from './SidebarMenuItem';
+export { default as SidebarFooter } from './SidebarFooter';
 export { default as DesktopSidebar } from './DesktopSidebar';
 export { default as MobileSidebar } from './MobileSidebar';
 export { SidebarProvider, useSidebar } from './SidebarProvider';

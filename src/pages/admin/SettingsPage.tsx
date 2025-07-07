@@ -91,9 +91,9 @@ const SettingsPage: React.FC = () => {
 
   const handleInputChange =
     (field: keyof ProfileUpdateFormData) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setField(field, event.target.value);
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setField(field, event.target.value);
+    };
 
   const validateForm = (): boolean => {
     return validate();
@@ -151,7 +151,10 @@ const SettingsPage: React.FC = () => {
           confirmPassword: '',
         });
       } else {
-        showSnackbar(data.message || 'Erro ao atualizar perfil', Severity.ERROR);
+        showSnackbar(
+          data.message || 'Erro ao atualizar perfil',
+          Severity.ERROR
+        );
       }
     } catch (error) {
       console.error('Erro ao atualizar perfil:', error);

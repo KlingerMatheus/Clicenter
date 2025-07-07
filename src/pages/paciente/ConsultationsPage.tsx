@@ -281,10 +281,10 @@ const ConsultationsPage: React.FC = () => {
             label={getStatusLabel(consultation.status)}
             color={
               getStatusColor(consultation.status) as
-              | 'success'
-              | 'primary'
-              | 'error'
-              | 'default'
+                | 'success'
+                | 'primary'
+                | 'error'
+                | 'default'
             }
             size="small"
             icon={getStatusIcon(consultation.status)}
@@ -331,16 +331,16 @@ const ConsultationsPage: React.FC = () => {
         </Button>
         {(consultation.status === 'scheduled' ||
           consultation.status === 'confirmed') && (
-            <Button
-              size="small"
-              startIcon={<CancelIcon />}
-              onClick={() => handleCancelConsultation(consultation._id)}
-              color="error"
-              variant="outlined"
-            >
-              Cancelar
-            </Button>
-          )}
+          <Button
+            size="small"
+            startIcon={<CancelIcon />}
+            onClick={() => handleCancelConsultation(consultation._id)}
+            color="error"
+            variant="outlined"
+          >
+            Cancelar
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
@@ -407,10 +407,10 @@ const ConsultationsPage: React.FC = () => {
                   label={getStatusLabel(consultation.status)}
                   color={
                     getStatusColor(consultation.status) as
-                    | 'success'
-                    | 'primary'
-                    | 'error'
-                    | 'default'
+                      | 'success'
+                      | 'primary'
+                      | 'error'
+                      | 'default'
                   }
                   size="small"
                   icon={getStatusIcon(consultation.status)}
@@ -451,15 +451,15 @@ const ConsultationsPage: React.FC = () => {
                   </IconButton>
                   {(consultation.status === 'scheduled' ||
                     consultation.status === 'confirmed') && (
-                      <IconButton
-                        size="small"
-                        onClick={() => handleCancelConsultation(consultation._id)}
-                        title="Cancelar Consulta"
-                        color="error"
-                      >
-                        <CancelIcon />
-                      </IconButton>
-                    )}
+                    <IconButton
+                      size="small"
+                      onClick={() => handleCancelConsultation(consultation._id)}
+                      title="Cancelar Consulta"
+                      color="error"
+                    >
+                      <CancelIcon />
+                    </IconButton>
+                  )}
                 </Box>
               </TableCell>
             </TableRow>
@@ -554,21 +554,22 @@ const ConsultationsPage: React.FC = () => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Typography variant="body2">
-                      <strong>Status:</strong>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2">
+                        <strong>Status:</strong>
+                      </Typography>
                       <Chip
                         label={getStatusLabel(selectedConsultation.status)}
                         color={
                           getStatusColor(selectedConsultation.status) as
-                          | 'success'
-                          | 'primary'
-                          | 'error'
-                          | 'default'
+                            | 'success'
+                            | 'primary'
+                            | 'error'
+                            | 'default'
                         }
                         size="small"
-                        sx={{ ml: 1 }}
                       />
-                    </Typography>
+                    </Box>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography variant="body2">

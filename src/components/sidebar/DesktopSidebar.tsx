@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Drawer, useTheme } from '@mui/material';
-import SidebarContent, { SidebarContentProps } from './SidebarContent';
+import SidebarContent from './SidebarContent';
+import { SidebarContentProps } from '../../types/sidebar';
 
 export interface DesktopSidebarProps
   extends Omit<SidebarContentProps, 'isMobile'> {

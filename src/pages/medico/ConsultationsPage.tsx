@@ -307,10 +307,10 @@ const ConsultationsPage: React.FC = () => {
             label={getStatusLabel(consultation.status)}
             color={
               getStatusColor(consultation.status) as
-              | 'success'
-              | 'primary'
-              | 'error'
-              | 'default'
+                | 'success'
+                | 'primary'
+                | 'error'
+                | 'default'
             }
             size="small"
           />
@@ -431,10 +431,10 @@ const ConsultationsPage: React.FC = () => {
                   label={getStatusLabel(consultation.status)}
                   color={
                     getStatusColor(consultation.status) as
-                    | 'success'
-                    | 'primary'
-                    | 'error'
-                    | 'default'
+                      | 'success'
+                      | 'primary'
+                      | 'error'
+                      | 'default'
                   }
                   size="small"
                 />

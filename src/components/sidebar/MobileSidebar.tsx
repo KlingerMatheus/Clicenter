@@ -3,7 +3,8 @@
 import React from 'react';
 import { Drawer, Box, useTheme } from '@mui/material';
 import { motion, PanInfo } from 'framer-motion';
-import SidebarContent, { SidebarContentProps } from './SidebarContent';
+import SidebarContent from './SidebarContent';
+import { SidebarContentProps } from '../../types/sidebar';
 
 export interface MobileSidebarProps
   extends Omit<SidebarContentProps, 'isMobile' | 'isExpanded'> {

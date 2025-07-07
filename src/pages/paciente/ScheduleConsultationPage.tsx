@@ -234,20 +234,20 @@ const ScheduleConsultationPage: React.FC = () => {
 
   const availableDates = selectedDoctor
     ? Array.from(
-      new Set(
-        selectedDoctor.availableSlots
-          .filter((slot) => slot.available)
-          .map((slot) => slot.date)
-      )
-    ).sort()
+        new Set(
+          selectedDoctor.availableSlots
+            .filter((slot) => slot.available)
+            .map((slot) => slot.date)
+        )
+      ).sort()
     : [];
 
   const availableTimes =
     selectedDoctor && selectedDate
       ? selectedDoctor.availableSlots
-        .filter((slot) => slot.date === selectedDate && slot.available)
-        .map((slot) => slot.time)
-        .sort()
+          .filter((slot) => slot.date === selectedDate && slot.available)
+          .map((slot) => slot.time)
+          .sort()
       : [];
 
   const handleDoctorSelect = (doctor: Doctor) => {

@@ -36,4 +36,4 @@ export const useSidebarState = () => {
     toggleExpanded,
     setExpanded,
   };
-}; 
+};

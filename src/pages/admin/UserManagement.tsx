@@ -482,9 +482,9 @@ const UserManagement: React.FC = () => {
                   label={getRoleLabel(user.role)}
                   color={
                     getRoleColor(user.role) as
-                    | 'primary'
-                    | 'secondary'
-                    | 'default'
+                      | 'primary'
+                      | 'secondary'
+                      | 'default'
                   }
                   size="small"
                 />
