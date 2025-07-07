@@ -68,7 +68,7 @@
     "jsx-a11y/role-supports-aria-props": "error",
 
     // General rules
-    "no-console": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-debugger": "error",
     "no-alert": "warn",
     "no-var": "error",
@@ -94,5 +94,13 @@
     "dist/",
     "*.config.js",
     "*.config.ts"
+  ],
+  "overrides": [
+    {
+      "files": ["src/pages/api/**/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
   ]
 }
