@@ -297,7 +297,7 @@ const Dashboard: React.FC = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <Chip
                         label={getTypeLabel(type)}
-                        color={getTypeColor(type) as any}
+                        color={getTypeColor(type) as 'success' | 'warning' | 'info' | 'error' | 'default'}
                         size="small"
                         sx={{ mr: 1 }}
                       />

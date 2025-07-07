@@ -10,14 +10,14 @@ interface UseFormValidationReturn<T> {
   errors: ValidationErrors;
   isValid: boolean;
   setData: (data: T) => void;
-  setField: (field: keyof T, value: any) => void;
+  setField: (field: keyof T, value: T[keyof T]) => void;
   validate: () => boolean;
   validateField: (field: keyof T) => boolean;
   clearErrors: () => void;
   reset: (initialData: T) => void;
 }
 
-export function useFormValidation<T extends Record<string, any>>(
+export function useFormValidation<T extends Record<string, unknown>>(
   schema: ZodSchema<T>,
   initialData: T
 ): UseFormValidationReturn<T> {
@@ -76,7 +76,7 @@ export function useFormValidation<T extends Record<string, any>>(
   );
 
   const setField = useCallback(
-    (field: keyof T, value: any) => {
+    (field: keyof T, value: T[keyof T]) => {
       setData((prev) => ({
         ...prev,
         [field]: value,

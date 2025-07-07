@@ -18,7 +18,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
 }) => {
   const theme = useTheme();
 
-  const handleDragEnd = (event: any, info: PanInfo) => {
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const { offset, velocity } = info;
 
     if (offset.y > 100 || velocity.y > 500) {

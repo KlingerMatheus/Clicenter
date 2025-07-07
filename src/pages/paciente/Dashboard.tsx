@@ -365,7 +365,7 @@ const PatientDashboard: React.FC = () => {
                           </Typography>
                           <Chip
                             label={getStatusLabel(consultation.status)}
-                            color={getStatusColor(consultation.status) as any}
+                            color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
                             size="small"
                             icon={getStatusIcon(consultation.status)}
                           />

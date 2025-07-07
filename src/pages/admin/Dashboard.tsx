@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
         if (data.success) {
           const users = data.data;
           const total = users.length;
-          const active = users.filter((user: any) => user.isActive).length;
+          const active = users.filter((user: { isActive: boolean }) => user.isActive).length;
           const inactive = total - active;
 
           setStats({ total, active, inactive });
@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
     };
 
     fetchStats();
-  }, [token]);
+  }, [token, apiBaseUrl]);
 
   if (loading) {
     return <ContentLoading />;

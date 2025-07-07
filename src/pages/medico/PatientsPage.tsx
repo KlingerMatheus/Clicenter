@@ -909,7 +909,7 @@ const PatientsPage: React.FC = () => {
                                       color={
                                         getStatusColor(
                                           consultation.status
-                                        ) as any
+                                        ) as 'success' | 'primary' | 'error' | 'default'
                                       }
                                       size="small"
                                     />

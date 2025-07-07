@@ -189,13 +189,13 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
         text: 'Dashboard',
         icon: <DashboardIcon />,
         path: '/dashboard',
-        onClick: () => console.log('Dashboard clicked'),
+        onClick: () => router.push('/dashboard'),
       },
       {
         text: 'Usuários',
         icon: <PeopleIcon />,
         path: '/users',
-        onClick: () => console.log('Usuários clicked'),
+        onClick: () => router.push('/users'),
       },
     ];
   }, [user?.role, userType, router]);

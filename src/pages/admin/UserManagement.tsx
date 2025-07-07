@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { createUserSchema, CreateUserFormData } from '../../lib/validations';
@@ -69,6 +69,8 @@ const UserManagement: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
   const {
     data: formData,
@@ -91,7 +93,11 @@ const UserManagement: React.FC = () => {
 
   const { apiBaseUrl } = useApi();
 
-  const fetchUsers = async () => {
+  const showSnackbar = useCallback((message: string, severity: 'success' | 'error') => {
+    setSnackbar({ open: true, message, severity });
+  }, []);
+
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`${apiBaseUrl}/users`, {
@@ -109,15 +115,11 @@ const UserManagement: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiBaseUrl, token, showSnackbar]);
 
   useEffect(() => {
     fetchUsers();
-  }, []);
-
-  const showSnackbar = (message: string, severity: 'success' | 'error') => {
-    setSnackbar({ open: true, message, severity });
-  };
+  }, [fetchUsers]);
 
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -181,7 +183,7 @@ const UserManagement: React.FC = () => {
 
       const payload = { ...formData };
       if (editingUser && !formData.password) {
-        delete (payload as any).password;
+        delete (payload as Partial<CreateUserFormData>).password;
       }
 
       const response = await fetch(url, {
@@ -215,7 +217,7 @@ const UserManagement: React.FC = () => {
     }
   };
 
-  const handleDelete = async (userId: string) => {
+  const handleDelete = (userId: string) => {
     // Verificar se o usuário é admin
     const user = users.find((u) => u._id === userId);
     if (user && user.role === 'admin') {
@@ -223,12 +225,15 @@ const UserManagement: React.FC = () => {
       return;
     }
 
-    if (!window.confirm('Tem certeza que deseja excluir este usuário?')) {
-      return;
-    }
+    setUserToDelete(userId);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!userToDelete) return;
 
     try {
-      const response = await fetch(`${apiBaseUrl}/users/${userId}`, {
+      const response = await fetch(`${apiBaseUrl}/users/${userToDelete}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -246,7 +251,15 @@ const UserManagement: React.FC = () => {
     } catch (error) {
       console.error('Erro ao excluir usuário:', error);
       showSnackbar('Erro ao excluir usuário', 'error');
+    } finally {
+      setDeleteDialogOpen(false);
+      setUserToDelete(null);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setUserToDelete(null);
   };
 
   const handleToggleStatus = async (userId: string) => {
@@ -280,8 +293,7 @@ const UserManagement: React.FC = () => {
         showSnackbar(data.message || 'Erro ao alterar status', 'error');
       }
     } catch (error) {
-      console.error('Erro ao alterar status:', error);
-      showSnackbar('Erro ao alterar status', 'error');
+      showSnackbar(`Erro ao alterar status: ${error}`, 'error');
     }
   };
 
@@ -386,7 +398,7 @@ const UserManagement: React.FC = () => {
           >
             <Chip
               label={getRoleLabel(user.role)}
-              color={getRoleColor(user.role) as any}
+              color={getRoleColor(user.role) as 'primary' | 'secondary' | 'default'}
               size="small"
             />
             <Chip
@@ -465,7 +477,7 @@ const UserManagement: React.FC = () => {
               <TableCell>
                 <Chip
                   label={getRoleLabel(user.role)}
-                  color={getRoleColor(user.role) as any}
+                  color={getRoleColor(user.role) as 'primary' | 'secondary' | 'default'}
                   size="small"
                 />
               </TableCell>
@@ -668,6 +680,29 @@ const UserManagement: React.FC = () => {
           >
             {editingUser ? 'Atualizar' : 'Criar'}
           </LoadingButton>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog de Confirmação de Exclusão */}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleCancelDelete}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>Confirmar Exclusão</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete} variant="outlined">
+            Cancelar
+          </Button>
+          <Button onClick={handleConfirmDelete} variant="contained" color="error">
+            Excluir
+          </Button>
         </DialogActions>
       </Dialog>
 

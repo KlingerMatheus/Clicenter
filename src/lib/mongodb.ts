@@ -12,10 +12,12 @@ async function connectDB() {
   }
 
   try {
-    await mongoose.connect(MONGODB_URI!);
+    if (!MONGODB_URI) {
+      throw new Error('MONGODB_URI não está definida');
+    }
+    await mongoose.connect(MONGODB_URI);
     return mongoose.connection;
   } catch (error) {
-    console.error('Erro de conexão MongoDB:', error);
     throw error;
   }
 }

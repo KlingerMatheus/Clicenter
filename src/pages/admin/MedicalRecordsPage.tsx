@@ -221,7 +221,7 @@ const MedicalRecordsPage: React.FC = () => {
           </Box>
           <Chip
             label={getStatusLabel(record.status)}
-            color={getStatusColor(record.status) as any}
+            color={getStatusColor(record.status) as 'success' | 'warning' | 'info' | 'error' | 'default'}
             size="small"
           />
         </Box>
@@ -304,7 +304,7 @@ const MedicalRecordsPage: React.FC = () => {
               <TableCell>
                 <Chip
                   label={getStatusLabel(record.status)}
-                  color={getStatusColor(record.status) as any}
+                  color={getStatusColor(record.status) as 'success' | 'warning' | 'info' | 'error' | 'default'}
                   size="small"
                 />
               </TableCell>
@@ -418,7 +418,7 @@ const MedicalRecordsPage: React.FC = () => {
                     </Typography>
                     <Chip
                       label={getStatusLabel(selectedRecord.status)}
-                      color={getStatusColor(selectedRecord.status) as any}
+                      color={getStatusColor(selectedRecord.status) as 'success' | 'warning' | 'info' | 'error' | 'default'}
                       size="small"
                     />
                   </Box>

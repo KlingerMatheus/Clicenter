@@ -25,7 +25,7 @@ export default async function handler(
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET || 'secret'
-    ) as any;
+    ) as { userId: string };
 
     await connectDB();
     const user = await User.findById(decoded.userId);

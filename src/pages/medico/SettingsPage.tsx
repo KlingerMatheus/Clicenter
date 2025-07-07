@@ -75,7 +75,7 @@ const SettingsPage: React.FC = () => {
         email: user.email,
       });
     }
-  }, [user, setData]);
+  }, [user, setData, formData]);
 
   const showSnackbar = (message: string, severity: 'success' | 'error') => {
     setSnackbar({ open: true, message, severity });
@@ -87,9 +87,9 @@ const SettingsPage: React.FC = () => {
 
   const handleInputChange =
     (field: keyof ProfileUpdateFormData) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setField(field, event.target.value);
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setField(field, event.target.value);
+      };
 
   const validateForm = (): boolean => {
     return validate();
@@ -106,7 +106,12 @@ const SettingsPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const payload: any = {
+      const payload: {
+        name: string;
+        email: string;
+        currentPassword?: string;
+        newPassword?: string;
+      } = {
         name: formData.name,
         email: formData.email,
       };
@@ -133,7 +138,7 @@ const SettingsPage: React.FC = () => {
         // Atualizar dados do usuário no contexto
         if (updateUser) {
           updateUser({
-            ...user!,
+            ...user,
             name: formData.name,
             email: formData.email,
           });

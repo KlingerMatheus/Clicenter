@@ -276,9 +276,9 @@ const MedicalRecordPage: React.FC = () => {
               Exames solicitados:
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap">
-              {record.exams.map((exam, index) => (
+              {record.exams.map((exam) => (
                 <Chip
-                  key={index}
+                  key={`exam-${exam}`}
                   label={exam}
                   size="small"
                   variant="outlined"
@@ -603,8 +603,8 @@ const MedicalRecordPage: React.FC = () => {
                     Exames Solicitados
                   </Typography>
                   <List>
-                    {selectedRecord.exams.map((exam, index) => (
-                      <ListItem key={index} sx={{ px: 0 }}>
+                    {selectedRecord.exams.map((exam) => (
+                      <ListItem key={`exam-${exam}`} sx={{ px: 0 }}>
                         <ListItemAvatar>
                           <Avatar
                             sx={{
