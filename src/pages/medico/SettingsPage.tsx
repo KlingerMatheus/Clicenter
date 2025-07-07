@@ -34,6 +34,7 @@ import {
 import ContentLoading from '../../components/ContentLoading';
 import LoadingButton from '../../components/LoadingButton';
 import { useApi } from '../../hooks/useApi';
+import { Severity } from '../../types';
 
 const SettingsPage: React.FC = () => {
   const theme = useTheme();
@@ -62,7 +63,7 @@ const SettingsPage: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   const { apiBaseUrl } = useApi();
@@ -70,14 +71,16 @@ const SettingsPage: React.FC = () => {
   useEffect(() => {
     if (user) {
       setData({
-        ...formData,
         name: user.name,
         email: user.email,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
       });
     }
-  }, [user, setData, formData]);
+  }, [user, setData]);
 
-  const showSnackbar = (message: string, severity: 'success' | 'error') => {
+  const showSnackbar = (message: string, severity: Severity) => {
     setSnackbar({ open: true, message, severity });
   };
 
@@ -133,7 +136,7 @@ const SettingsPage: React.FC = () => {
       const data = await response.json();
 
       if (data.success) {
-        showSnackbar('Perfil atualizado com sucesso!', 'success');
+        showSnackbar('Perfil atualizado com sucesso!', Severity.SUCCESS);
 
         // Atualizar dados do usuário no contexto
         if (updateUser) {
@@ -153,11 +156,11 @@ const SettingsPage: React.FC = () => {
           confirmPassword: '',
         });
       } else {
-        showSnackbar(data.message || 'Erro ao atualizar perfil', 'error');
+        showSnackbar(data.message || 'Erro ao atualizar perfil', Severity.ERROR);
       }
     } catch (error) {
       console.error('Erro ao atualizar perfil:', error);
-      showSnackbar('Erro ao conectar com o servidor', 'error');
+      showSnackbar('Erro ao conectar com o servidor', Severity.ERROR);
     } finally {
       setLoading(false);
     }

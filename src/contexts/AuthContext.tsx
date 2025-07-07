@@ -1,14 +1,21 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import { useApi } from '../hooks/useApi';
+import { Role } from '../types';
 
 interface User {
   _id: string;
   name: string;
   email: string;
-  role: 'admin' | 'medico' | 'paciente';
+  role: Role;
   isActive: boolean;
 }
 
@@ -42,32 +49,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
   const { apiBaseUrl } = useApi();
 
-  const verifyToken = useCallback(async (tokenToVerify: string) => {
-    try {
-      const response = await fetch(`${apiBaseUrl}/auth/me`, {
-        headers: {
-          Authorization: `Bearer ${tokenToVerify}`,
-        },
-      });
+  const verifyToken = useCallback(
+    async (tokenToVerify: string) => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${tokenToVerify}`,
+          },
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data.data);
-      } else {
-        // Token inválido, limpar dados
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.data);
+        } else {
+          // Token inválido, limpar dados
+          localStorage.removeItem('token');
+          setToken(null);
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Erro ao verificar token:', error);
         localStorage.removeItem('token');
         setToken(null);
         setUser(null);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('Erro ao verificar token:', error);
-      localStorage.removeItem('token');
-      setToken(null);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [apiBaseUrl]);
+    },
+    [apiBaseUrl]
+  );
 
   // Verificar token no localStorage ao carregar
   useEffect(() => {

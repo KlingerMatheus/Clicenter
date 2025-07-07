@@ -38,6 +38,7 @@ import {
   MonitorWeight as WeightIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
+import { Gender, Severity } from '../../types';
 
 interface PatientProfile {
   _id: string;
@@ -45,7 +46,7 @@ interface PatientProfile {
   email: string;
   phone: string;
   dateOfBirth: string;
-  gender: 'male' | 'female' | 'other';
+  gender: Gender;
   address: string;
   bloodType: string;
   height: number;
@@ -71,7 +72,7 @@ const SettingsPage: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   const [formData, setFormData] = useState({
@@ -79,7 +80,7 @@ const SettingsPage: React.FC = () => {
     email: '',
     phone: '',
     dateOfBirth: '',
-    gender: 'other' as 'male' | 'female' | 'other',
+    gender: 'other' as Gender,
     address: '',
     bloodType: '',
     height: '',
@@ -105,7 +106,7 @@ const SettingsPage: React.FC = () => {
         email: 'maria@email.com',
         phone: '(11) 99999-1111',
         dateOfBirth: '1985-03-15',
-        gender: 'female',
+        gender: Gender.FEMALE,
         address: 'Rua das Flores, 123 - São Paulo, SP',
         bloodType: 'A+',
         height: 165,
@@ -181,13 +182,13 @@ const SettingsPage: React.FC = () => {
       setSnackbar({
         open: true,
         message: 'Perfil atualizado com sucesso!',
-        severity: 'success',
+        severity: Severity.SUCCESS,
       });
     } catch (error) {
       setSnackbar({
         open: true,
         message: `Erro ao atualizar perfil: ${error}`,
-        severity: 'error',
+        severity: Severity.ERROR,
       });
     }
   };
@@ -201,7 +202,7 @@ const SettingsPage: React.FC = () => {
     setSnackbar({
       open: true,
       message: 'Contato de emergência atualizado!',
-      severity: 'success',
+      severity: Severity.SUCCESS,
     });
   };
 
@@ -364,7 +365,7 @@ const SettingsPage: React.FC = () => {
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        gender: e.target.value as 'male' | 'female' | 'other',
+                        gender: e.target.value as Gender,
                       })
                     }
                   >

@@ -42,6 +42,7 @@ import {
   AccessTime as TimeIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
+import { Severity } from '../../types';
 
 interface Doctor {
   _id: string;
@@ -77,7 +78,7 @@ const ScheduleConsultationPage: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   useEffect(() => {
@@ -233,20 +234,20 @@ const ScheduleConsultationPage: React.FC = () => {
 
   const availableDates = selectedDoctor
     ? Array.from(
-        new Set(
-          selectedDoctor.availableSlots
-            .filter((slot) => slot.available)
-            .map((slot) => slot.date)
-        )
-      ).sort()
+      new Set(
+        selectedDoctor.availableSlots
+          .filter((slot) => slot.available)
+          .map((slot) => slot.date)
+      )
+    ).sort()
     : [];
 
   const availableTimes =
     selectedDoctor && selectedDate
       ? selectedDoctor.availableSlots
-          .filter((slot) => slot.date === selectedDate && slot.available)
-          .map((slot) => slot.time)
-          .sort()
+        .filter((slot) => slot.date === selectedDate && slot.available)
+        .map((slot) => slot.time)
+        .sort()
       : [];
 
   const handleDoctorSelect = (doctor: Doctor) => {
@@ -432,15 +433,16 @@ const ScheduleConsultationPage: React.FC = () => {
                           </Box>
                         }
                         secondary={
-                          <Box component="div">
+                          <Box component="span">
                             <Typography
                               variant="body2"
                               color="text.secondary"
-                              component="div"
+                              component="span"
                             >
                               {doctor.crm}
                             </Typography>
                             <Box
+                              component="span"
                               sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -451,7 +453,7 @@ const ScheduleConsultationPage: React.FC = () => {
                               <Typography
                                 variant="caption"
                                 color="text.secondary"
-                                component="div"
+                                component="span"
                               >
                                 ⭐ {doctor.rating} ({doctor.totalConsultations}{' '}
                                 consultas)

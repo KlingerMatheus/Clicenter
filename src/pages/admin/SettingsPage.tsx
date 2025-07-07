@@ -37,6 +37,7 @@ import {
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
 import LoadingButton from '../../components/LoadingButton';
+import { Severity } from '../../types';
 
 const SettingsPage: React.FC = () => {
   const theme = useTheme();
@@ -65,20 +66,22 @@ const SettingsPage: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   useEffect(() => {
     if (user) {
       setData({
-        ...formData,
         name: user.name,
         email: user.email,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
       });
     }
-  }, [user, setData, formData]);
+  }, [user, setData]);
 
-  const showSnackbar = (message: string, severity: 'success' | 'error') => {
+  const showSnackbar = (message: string, severity: Severity) => {
     setSnackbar({ open: true, message, severity });
   };
 
@@ -100,7 +103,7 @@ const SettingsPage: React.FC = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-      showSnackbar('Por favor, corrija os erros no formulário', 'error');
+      showSnackbar('Por favor, corrija os erros no formulário', Severity.ERROR);
       return;
     }
 
@@ -134,7 +137,7 @@ const SettingsPage: React.FC = () => {
       const data = await response.json();
 
       if (data.success) {
-        showSnackbar('Perfil atualizado com sucesso!', 'success');
+        showSnackbar('Perfil atualizado com sucesso!', Severity.SUCCESS);
         // Atualizar o contexto com os novos dados
         updateUser({
           name: data.data.name,
@@ -148,11 +151,11 @@ const SettingsPage: React.FC = () => {
           confirmPassword: '',
         });
       } else {
-        showSnackbar(data.message || 'Erro ao atualizar perfil', 'error');
+        showSnackbar(data.message || 'Erro ao atualizar perfil', Severity.ERROR);
       }
     } catch (error) {
       console.error('Erro ao atualizar perfil:', error);
-      showSnackbar('Erro ao atualizar perfil', 'error');
+      showSnackbar('Erro ao atualizar perfil', Severity.ERROR);
     } finally {
       setLoading(false);
     }

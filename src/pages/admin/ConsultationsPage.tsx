@@ -168,7 +168,13 @@ const ConsultationsPage: React.FC = () => {
           </Box>
           <Chip
             label={getStatusLabel(consultation.status)}
-            color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
+            color={
+              getStatusColor(consultation.status) as
+                | 'success'
+                | 'primary'
+                | 'error'
+                | 'default'
+            }
             size="small"
           />
         </Box>
@@ -252,7 +258,13 @@ const ConsultationsPage: React.FC = () => {
               <TableCell>
                 <Chip
                   label={getStatusLabel(consultation.status)}
-                  color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
+                  color={
+                    getStatusColor(consultation.status) as
+                      | 'success'
+                      | 'primary'
+                      | 'error'
+                      | 'default'
+                  }
                   size="small"
                 />
               </TableCell>

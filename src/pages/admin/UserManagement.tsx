@@ -48,12 +48,13 @@ import {
 import ContentLoading from '../../components/ContentLoading';
 import LoadingButton from '../../components/LoadingButton';
 import { useApi } from '../../hooks/useApi';
+import { Role, Severity } from '../../types';
 
 interface User {
   _id: string;
   name: string;
   email: string;
-  role: 'admin' | 'medico' | 'paciente';
+  role: Role;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -88,12 +89,12 @@ const UserManagement: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   const { apiBaseUrl } = useApi();
 
-  const showSnackbar = useCallback((message: string, severity: 'success' | 'error') => {
+  const showSnackbar = useCallback((message: string, severity: Severity) => {
     setSnackbar({ open: true, message, severity });
   }, []);
 
@@ -111,7 +112,7 @@ const UserManagement: React.FC = () => {
       }
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
-      showSnackbar('Erro ao carregar usuários', 'error');
+      showSnackbar('Erro ao carregar usuários', Severity.ERROR);
     } finally {
       setLoading(false);
     }
@@ -131,7 +132,7 @@ const UserManagement: React.FC = () => {
       if (user.role === 'admin') {
         showSnackbar(
           'Não é permitido editar usuários administradores',
-          'error'
+          Severity.ERROR
         );
         return;
       }
@@ -398,7 +399,9 @@ const UserManagement: React.FC = () => {
           >
             <Chip
               label={getRoleLabel(user.role)}
-              color={getRoleColor(user.role) as 'primary' | 'secondary' | 'default'}
+              color={
+                getRoleColor(user.role) as 'primary' | 'secondary' | 'default'
+              }
               size="small"
             />
             <Chip
@@ -477,7 +480,12 @@ const UserManagement: React.FC = () => {
               <TableCell>
                 <Chip
                   label={getRoleLabel(user.role)}
-                  color={getRoleColor(user.role) as 'primary' | 'secondary' | 'default'}
+                  color={
+                    getRoleColor(user.role) as
+                    | 'primary'
+                    | 'secondary'
+                    | 'default'
+                  }
                   size="small"
                 />
               </TableCell>
@@ -693,14 +701,19 @@ const UserManagement: React.FC = () => {
         <DialogTitle>Confirmar Exclusão</DialogTitle>
         <DialogContent>
           <Typography>
-            Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.
+            Tem certeza que deseja excluir este usuário? Esta ação não pode ser
+            desfeita.
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelDelete} variant="outlined">
             Cancelar
           </Button>
-          <Button onClick={handleConfirmDelete} variant="contained" color="error">
+          <Button
+            onClick={handleConfirmDelete}
+            variant="contained"
+            color="error"
+          >
             Excluir
           </Button>
         </DialogActions>

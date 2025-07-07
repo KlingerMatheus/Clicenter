@@ -134,7 +134,10 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 <Box sx={{ p: 0.75 }}>
                   <Box sx={{ borderRadius: 0.75, overflow: 'hidden' }}>
                     {footerItems.map((item) => (
-                      <MenuItemComponent key={`footer-${item.label}`} item={item} />
+                      <MenuItemComponent
+                        key={`footer-${item.label}`}
+                        item={item}
+                      />
                     ))}
                   </Box>
                 </Box>

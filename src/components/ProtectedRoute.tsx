@@ -5,10 +5,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import ContentLoading from './ContentLoading';
 import AccessDenied from './AccessDenied';
+import { Role } from '../types';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: 'admin' | 'medico' | 'paciente';
+  requiredRole?: Role;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({

@@ -22,10 +22,9 @@ export default async function handler(
     }
 
     const token = authHeader.substring(7);
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET || 'secret'
-    ) as { userId: string };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret') as {
+      userId: string;
+    };
 
     await connectDB();
     const user = await User.findById(decoded.userId);

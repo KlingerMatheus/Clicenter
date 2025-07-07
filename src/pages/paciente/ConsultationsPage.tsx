@@ -37,6 +37,7 @@ import {
   Pending as PendingIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
+import { Severity } from '../../types';
 
 interface Consultation {
   _id: string;
@@ -64,7 +65,7 @@ const ConsultationsPage: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   useEffect(() => {
@@ -181,13 +182,13 @@ const ConsultationsPage: React.FC = () => {
       setSnackbar({
         open: true,
         message: 'Consulta cancelada com sucesso!',
-        severity: 'success',
+        severity: Severity.SUCCESS,
       });
     } catch (error) {
       setSnackbar({
         open: true,
         message: `Erro ao cancelar consulta: ${error}`,
-        severity: 'error',
+        severity: Severity.ERROR,
       });
     }
   };
@@ -278,7 +279,13 @@ const ConsultationsPage: React.FC = () => {
           </Box>
           <Chip
             label={getStatusLabel(consultation.status)}
-            color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
+            color={
+              getStatusColor(consultation.status) as
+              | 'success'
+              | 'primary'
+              | 'error'
+              | 'default'
+            }
             size="small"
             icon={getStatusIcon(consultation.status)}
           />
@@ -398,7 +405,13 @@ const ConsultationsPage: React.FC = () => {
               <TableCell>
                 <Chip
                   label={getStatusLabel(consultation.status)}
-                  color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
+                  color={
+                    getStatusColor(consultation.status) as
+                    | 'success'
+                    | 'primary'
+                    | 'error'
+                    | 'default'
+                  }
                   size="small"
                   icon={getStatusIcon(consultation.status)}
                 />
@@ -546,7 +559,11 @@ const ConsultationsPage: React.FC = () => {
                       <Chip
                         label={getStatusLabel(selectedConsultation.status)}
                         color={
-                          getStatusColor(selectedConsultation.status) as 'success' | 'primary' | 'error' | 'default'
+                          getStatusColor(selectedConsultation.status) as
+                          | 'success'
+                          | 'primary'
+                          | 'error'
+                          | 'default'
                         }
                         size="small"
                         sx={{ ml: 1 }}

@@ -47,6 +47,7 @@ import {
   MonitorWeight as WeightIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
+import { Gender, Severity } from '../../types';
 
 interface Patient {
   _id: string;
@@ -54,7 +55,7 @@ interface Patient {
   email: string;
   phone: string;
   dateOfBirth: string;
-  gender: 'male' | 'female' | 'other';
+  gender: Gender;
   address: string;
   bloodType: string;
   height: number;
@@ -102,7 +103,7 @@ const PatientsPage: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   useEffect(() => {
@@ -907,19 +908,22 @@ const PatientsPage: React.FC = () => {
                                         consultation.status
                                       )}
                                       color={
-                                        getStatusColor(
-                                          consultation.status
-                                        ) as 'success' | 'primary' | 'error' | 'default'
+                                        getStatusColor(consultation.status) as
+                                        | 'success'
+                                        | 'primary'
+                                        | 'error'
+                                        | 'default'
                                       }
                                       size="small"
                                     />
                                   </Box>
                                 }
                                 secondary={
-                                  <Box>
+                                  <Box component="span">
                                     <Typography
                                       variant="body2"
                                       color="text.secondary"
+                                      component="span"
                                     >
                                       Sintomas: {consultation.symptoms}
                                     </Typography>
@@ -927,6 +931,7 @@ const PatientsPage: React.FC = () => {
                                       <Typography
                                         variant="body2"
                                         color="text.secondary"
+                                        component="span"
                                       >
                                         Observações: {consultation.notes}
                                       </Typography>
@@ -985,22 +990,25 @@ const PatientsPage: React.FC = () => {
                                   </Box>
                                 }
                                 secondary={
-                                  <Box>
+                                  <Box component="span">
                                     <Typography
                                       variant="body2"
                                       sx={{ fontWeight: 600, mt: 1 }}
+                                      component="span"
                                     >
                                       Diagnóstico: {record.diagnosis}
                                     </Typography>
                                     <Typography
                                       variant="body2"
                                       color="text.secondary"
+                                      component="span"
                                     >
                                       Tratamento: {record.treatment}
                                     </Typography>
                                     <Typography
                                       variant="body2"
                                       color="text.secondary"
+                                      component="span"
                                     >
                                       Prescrição: {record.prescription}
                                     </Typography>
@@ -1008,6 +1016,7 @@ const PatientsPage: React.FC = () => {
                                       <Typography
                                         variant="body2"
                                         color="text.secondary"
+                                        component="span"
                                       >
                                         Observações: {record.notes}
                                       </Typography>

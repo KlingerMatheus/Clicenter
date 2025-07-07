@@ -35,6 +35,7 @@ import {
   Schedule as ScheduleIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
+import { Severity } from '../../types';
 
 interface Consultation {
   _id: string;
@@ -71,10 +72,11 @@ const ConsultationsPage: React.FC = () => {
     prescription: '',
     symptoms: '',
   });
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: Severity.SUCCESS,
   });
 
   useEffect(() => {
@@ -303,7 +305,13 @@ const ConsultationsPage: React.FC = () => {
           </Box>
           <Chip
             label={getStatusLabel(consultation.status)}
-            color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
+            color={
+              getStatusColor(consultation.status) as
+              | 'success'
+              | 'primary'
+              | 'error'
+              | 'default'
+            }
             size="small"
           />
         </Box>
@@ -421,7 +429,13 @@ const ConsultationsPage: React.FC = () => {
               <TableCell>
                 <Chip
                   label={getStatusLabel(consultation.status)}
-                  color={getStatusColor(consultation.status) as 'success' | 'primary' | 'error' | 'default'}
+                  color={
+                    getStatusColor(consultation.status) as
+                    | 'success'
+                    | 'primary'
+                    | 'error'
+                    | 'default'
+                  }
                   size="small"
                 />
               </TableCell>

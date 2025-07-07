@@ -18,16 +18,12 @@ import {
   Schedule as ScheduleIcon,
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
-
-interface ConsultationReminder {
-  id: string;
-  patientName: string;
-  patientEmail: string;
-  date: string;
-  time: string;
-  type: 'today' | 'tomorrow' | 'upcoming' | 'overdue';
-  status: 'scheduled' | 'confirmed' | 'pending';
-}
+import {
+  MOCK_CONSULTATION_REMINDERS,
+  getTypeColor,
+  getTypeLabel,
+} from '../../constants';
+import { ConsultationReminder } from '../../types';
 
 const Dashboard: React.FC = () => {
   const theme = useTheme();
@@ -37,87 +33,10 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     // Mock data - simular carregamento
     setTimeout(() => {
-      const mockReminders: ConsultationReminder[] = [
-        {
-          id: '1',
-          patientName: 'Maria Silva',
-          patientEmail: 'maria@email.com',
-          date: '2024-01-15',
-          time: '09:00',
-          type: 'today',
-          status: 'confirmed',
-        },
-        {
-          id: '2',
-          patientName: 'João Santos',
-          patientEmail: 'joao@email.com',
-          date: '2024-01-15',
-          time: '14:30',
-          type: 'today',
-          status: 'scheduled',
-        },
-        {
-          id: '3',
-          patientName: 'Ana Costa',
-          patientEmail: 'ana@email.com',
-          date: '2024-01-16',
-          time: '10:00',
-          type: 'tomorrow',
-          status: 'confirmed',
-        },
-        {
-          id: '4',
-          patientName: 'Pedro Oliveira',
-          patientEmail: 'pedro@email.com',
-          date: '2024-01-17',
-          time: '16:00',
-          type: 'upcoming',
-          status: 'pending',
-        },
-        {
-          id: '5',
-          patientName: 'Lucia Ferreira',
-          patientEmail: 'lucia@email.com',
-          date: '2024-01-14',
-          time: '11:00',
-          type: 'overdue',
-          status: 'scheduled',
-        },
-      ];
-      setReminders(mockReminders);
+      setReminders(MOCK_CONSULTATION_REMINDERS);
       setLoading(false);
     }, 1000);
   }, []);
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'today':
-        return 'primary';
-      case 'tomorrow':
-        return 'warning';
-      case 'upcoming':
-        return 'info';
-      case 'overdue':
-        return 'error';
-      default:
-        return 'default';
-    }
-  };
-
-  const getTypeLabel = (type: string) => {
-    switch (type) {
-      case 'today':
-        return 'Hoje';
-      case 'tomorrow':
-        return 'Amanhã';
-      case 'upcoming':
-        return 'Próximos Dias';
-      case 'overdue':
-        return 'Atrasada';
-      default:
-        return type;
-    }
-  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -297,7 +216,14 @@ const Dashboard: React.FC = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <Chip
                         label={getTypeLabel(type)}
-                        color={getTypeColor(type) as 'success' | 'warning' | 'info' | 'error' | 'default'}
+                        color={
+                          getTypeColor(type) as
+                            | 'success'
+                            | 'warning'
+                            | 'info'
+                            | 'error'
+                            | 'default'
+                        }
                         size="small"
                         sx={{ mr: 1 }}
                       />
