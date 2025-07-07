@@ -47,6 +47,7 @@ import {
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
 import LoadingButton from '../../components/LoadingButton';
+import { useApi } from '../../hooks/useApi';
 
 interface User {
   _id: string;
@@ -88,12 +89,12 @@ const UserManagement: React.FC = () => {
     severity: 'success' as 'success' | 'error',
   });
 
-  const API_BASE_URL = 'http://localhost:3001/api';
+  const { apiBaseUrl } = useApi();
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/users`, {
+      const response = await fetch(`${apiBaseUrl}/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -173,8 +174,8 @@ const UserManagement: React.FC = () => {
 
     try {
       const url = editingUser
-        ? `${API_BASE_URL}/users/${editingUser._id}`
-        : `${API_BASE_URL}/users`;
+        ? `${apiBaseUrl}/users/${editingUser._id}`
+        : `${apiBaseUrl}/users`;
 
       const method = editingUser ? 'PUT' : 'POST';
 
@@ -227,7 +228,7 @@ const UserManagement: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+      const response = await fetch(`${apiBaseUrl}/users/${userId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -261,7 +262,7 @@ const UserManagement: React.FC = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/users/${userId}/toggle-status`,
+        `${apiBaseUrl}/users/${userId}/toggle-status`,
         {
           method: 'PATCH',
           headers: {

@@ -3,6 +3,7 @@ import { Box, Typography, Paper, Grid } from '@mui/material';
 import { People, PersonAdd, PersonOff } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
 import ContentLoading from '../../components/ContentLoading';
+import { useApi } from '../../hooks/useApi';
 
 const Dashboard: React.FC = () => {
   const { token } = useAuth();
@@ -12,11 +13,12 @@ const Dashboard: React.FC = () => {
     inactive: 0,
   });
   const [loading, setLoading] = useState(true);
+  const { apiBaseUrl } = useApi();
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/users', {
+        const response = await fetch(`${apiBaseUrl}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

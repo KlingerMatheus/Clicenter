@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
+import { useApi } from '../../hooks/useApi';
 import {
   profileUpdateSchema,
   ProfileUpdateFormData,
@@ -40,6 +41,7 @@ import LoadingButton from '../../components/LoadingButton';
 const SettingsPage: React.FC = () => {
   const theme = useTheme();
   const { user, token, updateUser } = useAuth();
+  const { apiBaseUrl } = useApi();
 
   const {
     data: formData,
@@ -65,8 +67,6 @@ const SettingsPage: React.FC = () => {
     message: '',
     severity: 'success' as 'success' | 'error',
   });
-
-  const API_BASE_URL = 'http://localhost:3001/api';
 
   useEffect(() => {
     if (user) {
@@ -117,7 +117,7 @@ const SettingsPage: React.FC = () => {
         payload.newPassword = formData.newPassword;
       }
 
-      const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+      const response = await fetch(`${apiBaseUrl}/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

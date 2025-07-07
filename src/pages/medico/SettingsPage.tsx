@@ -33,6 +33,7 @@ import {
 } from '@mui/icons-material';
 import ContentLoading from '../../components/ContentLoading';
 import LoadingButton from '../../components/LoadingButton';
+import { useApi } from '../../hooks/useApi';
 
 const SettingsPage: React.FC = () => {
   const theme = useTheme();
@@ -64,7 +65,7 @@ const SettingsPage: React.FC = () => {
     severity: 'success' as 'success' | 'error',
   });
 
-  const API_BASE_URL = 'http://localhost:3001/api';
+  const { apiBaseUrl } = useApi();
 
   useEffect(() => {
     if (user) {
@@ -115,7 +116,7 @@ const SettingsPage: React.FC = () => {
         payload.newPassword = formData.newPassword;
       }
 
-      const response = await fetch(`${API_BASE_URL}/users/profile`, {
+      const response = await fetch(`${apiBaseUrl}/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
