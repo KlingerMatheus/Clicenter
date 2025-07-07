@@ -19,7 +19,7 @@ export default async function handler(
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    
+
     if (!user || !user.isActive) {
       return res
         .status(401)
@@ -54,11 +54,9 @@ export default async function handler(
     });
   } catch (error) {
     console.error('Erro no login:', error);
-    res
-      .status(500)
-      .json({ 
-        success: false, 
-        message: 'Erro interno do servidor'
-      });
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor',
+    });
   }
 }
