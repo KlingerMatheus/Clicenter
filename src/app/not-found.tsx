@@ -3,7 +3,6 @@
 import React from 'react';
 import { Box, Typography, Paper, Button } from '@mui/material';
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
-import AdminLayout from '../components/AdminLayout';
 import { useRouter } from 'next/navigation';
 
 export default function NotFound() {
@@ -13,78 +12,92 @@ export default function NotFound() {
     router.back();
   };
 
+  const handleGoHome = () => {
+    router.push('/');
+  };
+
   return (
-    <AdminLayout title="Página Não Encontrada">
-      <Box
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f8f9fa',
+        p: 3,
+      }}
+    >
+      <Paper
         sx={{
-          p: 3,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: 'calc(100vh - 64px)',
+          p: 6,
+          textAlign: 'center',
+          maxWidth: 500,
+          borderRadius: 3,
+          boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
         }}
       >
-        <Paper
+        <Typography
+          variant="h1"
           sx={{
-            p: 6,
-            textAlign: 'center',
-            maxWidth: 500,
-            borderRadius: 3,
-            boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+            fontSize: '6rem',
+            fontWeight: 700,
+            color: '#1976d2',
+            mb: 2,
+            lineHeight: 1,
           }}
         >
-          <Typography
-            variant="h1"
+          404
+        </Typography>
+
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 600,
+            mb: 2,
+            color: '#333',
+          }}
+        >
+          Página Não Encontrada
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            mb: 4,
+            color: '#666',
+            fontSize: '1.1rem',
+          }}
+        >
+          A página que você está procurando não existe ou foi movida.
+          Verifique o endereço ou navegue usando o menu lateral.
+        </Typography>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+          <Button
+            variant="outlined"
+            startIcon={<ArrowBackIcon />}
+            onClick={handleGoBack}
             sx={{
-              fontSize: '6rem',
-              fontWeight: 700,
-              color: 'primary.main',
-              mb: 2,
-              lineHeight: 1,
+              px: 4,
+              py: 1.5,
+              borderRadius: 2,
             }}
           >
-            404
-          </Typography>
-
-          <Typography
-            variant="h4"
+            Voltar
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleGoHome}
             sx={{
-              fontWeight: 600,
-              mb: 2,
-              color: 'text.primary',
+              px: 4,
+              py: 1.5,
+              borderRadius: 2,
             }}
           >
-            Página Não Encontrada
-          </Typography>
-
-          <Typography
-            variant="body1"
-            sx={{
-              mb: 4,
-              color: 'text.secondary',
-              fontSize: '1.1rem',
-            }}
-          >
-            A página que você está procurando não existe ou foi movida.
-            Verifique o endereço ou navegue usando o menu lateral.
-          </Typography>
-
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button
-              variant="contained"
-              startIcon={<ArrowBackIcon />}
-              onClick={handleGoBack}
-              sx={{
-                px: 4,
-                py: 1.5,
-                borderRadius: 2,
-              }}
-            >
-              Voltar
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
-    </AdminLayout>
+            Início
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 }
