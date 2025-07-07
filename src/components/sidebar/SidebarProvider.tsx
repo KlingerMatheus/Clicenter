@@ -12,6 +12,7 @@ import {
 } from '@mui/icons-material';
 import { MenuItem, UserInfo } from './SidebarContent';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSidebarState } from '../../hooks/useSidebarState';
 
 interface SidebarContextType {
   userInfo: UserInfo;
@@ -44,7 +45,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
 }) => {
   const router = useRouter();
   const { user } = useAuth();
-  const [isExpanded, setIsExpanded] = useState(true);
+  const { isExpanded, toggleExpanded } = useSidebarState();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const userInfo = useMemo(() => {
@@ -200,7 +201,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     ];
   }, [user?.role, userType, router]);
 
-  const toggleExpanded = () => setIsExpanded(!isExpanded);
   const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
   const closeMobile = () => setIsMobileOpen(false);
 
