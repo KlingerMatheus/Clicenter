@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGO_DB_URL;
+const MONGODB_URI = process.env.MONGO_DB_URL || process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error('MONGO_DB_URL não está definida');
+  throw new Error('MONGO_DB_URL ou MONGODB_URI não está definida');
 }
 
 async function connectDB() {
@@ -13,7 +13,6 @@ async function connectDB() {
 
   try {
     await mongoose.connect(MONGODB_URI!);
-    console.log('Conectado ao MongoDB');
     return mongoose.connection;
   } catch (error) {
     console.error('Erro de conexão MongoDB:', error);
