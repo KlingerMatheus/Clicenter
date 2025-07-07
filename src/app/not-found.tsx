@@ -68,8 +68,8 @@ export default function NotFound() {
             fontSize: '1.1rem',
           }}
         >
-          A página que você está procurando não existe ou foi movida.
-          Verifique o endereço ou navegue usando o menu lateral.
+          A página que você está procurando não existe ou foi movida. Verifique
+          o endereço ou navegue usando o menu lateral.
         </Typography>
 
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
