@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
@@ -86,9 +88,9 @@ const SettingsPage: React.FC = () => {
 
   const handleInputChange =
     (field: keyof ProfileUpdateFormData) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setField(field, event.target.value);
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setField(field, event.target.value);
+      };
 
   const validateForm = (): boolean => {
     return validate();
