@@ -77,7 +77,7 @@
     "no-duplicate-imports": "error",
     "no-multiple-empty-lines": ["error", { "max": 2 }],
     "eol-last": "error",
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "single", { "avoidEscape": true }]
   },
